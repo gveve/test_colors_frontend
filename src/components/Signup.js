@@ -21,7 +21,7 @@ class Signup extends React.Component {
   };
 
   handleSubmit = e => {
-    console.log("sign up", this.state);
+    // console.log("sign up", this.state);
     // debugger
     e.preventDefault();
     const { fields: { username, password } } = this.state;
@@ -29,38 +29,42 @@ class Signup extends React.Component {
   };
 
   render() {
+    if(!this.props.show) {
+      return null;
+    }
     const { fields } = this.state;
     console.log("sign up", this.props);
     return (
-      <div>
-        {this.state.error ? <h1>Try Again</h1> : null}
-        <div className="ui form">
-          <form onSubmit={this.handleSubmit}>
-            <div className="ui field">
-              <label>Username</label>
-              <input
-                name="username"
-                placeholder="username"
-                value={fields.username}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="ui field">
-              <label>Password</label>
-              <input
-                name="password"
-                type="password"
-                placeholder="password"
-                value={fields.password}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit">
-              Signup
-            </button>
-          </form>
+      <form className="w-full max-w-xs" onSubmit={this.handleSubmit}>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+              Full Name
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-full-name" value={fields.username} onChange={this.handleChange} type="text" placeholder="Username"></input>
+          </div>
         </div>
-      </div>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-username">
+              Password
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-username"  value={fields.password} onChange={this.handleChange} type="password" placeholder="******************"></input>
+          </div>
+        </div>
+        <div className="md:flex md:items-center">
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
+            <button className="shadow bg-purple hover:bg-purple-light text-white font-bold py-2 px-4 rounded" type="submit">
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </form>
     );
   }
 }

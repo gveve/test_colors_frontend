@@ -10,9 +10,10 @@ export function createUser(user, history) {
   return dispatch => {
     AuthAdapter.signup(user).then(res => {
       if (!res.errors) {
-        debugger;
         localStorage.setItem("token", res.token);
+        debugger;
         dispatch({ type: 'SET_CURRENT_USER', user: res.user });
+        history.push("/profile");
       }
     });
   };
@@ -24,18 +25,12 @@ export function loginUser(user, history) {
       if (!res.errors) {
         localStorage.setItem("token", res.token);
         dispatch({ type: 'SET_CURRENT_USER', user: res.user });
-        history.push("/");
+        history.push("/profile");
       }
     });
   };
 }
 
-export const fetchUser = () => dispatch => {
-  dispatch({ type: 'ASYNC_START' });
-  AuthAdapter.getCurrentUser().then(user => {
-    dispatch({ type: 'SET_CURRENT_USER', user });
-  });
-};
 
 
 export const logoutUser = () => {

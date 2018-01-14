@@ -5,7 +5,8 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
     debugger;
-      const { id, username } = action.user;
+      const id = action.user.id
+      const username = action.user.username
       return { ...state, currentUser: { id, username } };
     case 'LOGOUT_USER':
       return { ...state, currentUser: {} };

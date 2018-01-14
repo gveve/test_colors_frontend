@@ -5,9 +5,9 @@ import withAuth from '../hocs/withAuth';
 const Profile = props => {
   return (
     <div>
-      <h1>Congrats You are Logged In</h1>
+      <h1>Congrats You are in Profile!</h1>
     </div>
   );
 };
 
-export default withAuth(Profile);
+export default Profile;
