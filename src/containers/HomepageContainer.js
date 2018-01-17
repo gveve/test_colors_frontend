@@ -12,11 +12,7 @@ class HomePageContainer extends Component {
   render() {
     return (
       <div>
-        <h1>WaterColor</h1>
-        <p> You are in homepage </p>
-        <button as={Link} to='/login'>Login</button>
-        <button as={Link} to='/signup'>Signup</button>
-        <button as={Link} to='/profile'>Profile</button>
+      <PaintingContainer />
       </div>
     )
   }

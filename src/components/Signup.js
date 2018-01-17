@@ -15,27 +15,26 @@ class Signup extends React.Component {
     };
   }
 
-  handleChange = e => {
-    const newFields = { ...this.state.fields, [e.target.name]: e.target.value };
+  handleChange = (event) => {
+      console.log(event.target);
+    const newFields = { ...this.state.fields, [event.target.name]: event.target.value };
     this.setState({ fields: newFields });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (event) => {
     // console.log("sign up", this.state);
     // debugger
-    e.preventDefault();
+    event.preventDefault();
     const { fields: { username, password } } = this.state;
     this.props.createUser( this.state.fields, this.props.history);
   };
 
   render() {
-    if(!this.props.show) {
-      return null;
-    }
     const { fields } = this.state;
     console.log("sign up", this.props);
     return (
-      <form className="w-full max-w-xs" onSubmit={this.handleSubmit}>
+      <div className="flex mt-8 pt-8 justify-center">
+      <form className="w-full max-w-sm mt-8 bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 justify-center" onSubmit={this.handleSubmit}>
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/3">
             <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
@@ -43,7 +42,7 @@ class Signup extends React.Component {
             </label>
           </div>
           <div className="md:w-2/3">
-            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-full-name" value={fields.username} onChange={this.handleChange} type="text" placeholder="Username"></input>
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-full-name" name='username' value={fields.username} onChange={this.handleChange} type="text" placeholder="username"></input>
           </div>
         </div>
         <div className="md:flex md:items-center mb-6">
@@ -53,7 +52,7 @@ class Signup extends React.Component {
             </label>
           </div>
           <div className="md:w-2/3">
-            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-username"  value={fields.password} onChange={this.handleChange} type="password" placeholder="******************"></input>
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-username" name='password' value={fields.password} onChange={this.handleChange} type="password" placeholder="******************"></input>
           </div>
         </div>
         <div className="md:flex md:items-center">
@@ -65,6 +64,7 @@ class Signup extends React.Component {
           </div>
         </div>
       </form>
+      </div>
     );
   }
 }

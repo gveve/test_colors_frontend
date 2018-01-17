@@ -13,28 +13,26 @@ import * as actions from './actions';
 class App extends Component {
   constructor(){
     super()
-    this.state = {
+  }
 
+  componentDidMount = () => {
+    if (localStorage.getItem('token')) {
+      this.props.fetchUser()
+    } else {
+      this.props.history.push("/")
     }
   }
 
-  toggleModal = () => {
-    debugger
-
-  }
-
   render() {
-    console.log(this.props);
+    console.log("app", this.props);
     return (
       <div className="App">
         <HeaderContainer/>
-        <PaintingContainer />
-        <Signup />
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/profile" component={Profile} />
           <Route path="/signup" component={Signup} />
-          <Route path="/home" component={HomepageContainer}/>
+          <Route path="/" component={HomepageContainer}/>
         </Switch>
       </div>
     );

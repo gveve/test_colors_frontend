@@ -33,6 +33,10 @@ class PaintingContainer extends React.Component{
     })
   }
 
+  handleUpload = (event) => {
+
+  }
+
   render(){
 
     return(
@@ -67,7 +71,7 @@ class PaintingContainer extends React.Component{
               </div>
 
             </div>
-            <Canvas colors={this.state}/>
+            <Canvas handleUpload={this.handleUpload} colors={this.state}/>
         </div>
       </div>
     )

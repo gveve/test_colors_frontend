@@ -15,48 +15,55 @@ class Login extends React.Component {
     };
   }
 
-  handleChange = e => {
-    const newFields = { ...this.state.fields, [e.target.name]: e.target.value };
+  handleChange = (event) => {
+      console.log(event.target);
+    const newFields = { ...this.state.fields, [event.target.name]: event.target.value };
     this.setState({ fields: newFields });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = (event) => {
+    // console.log("sign up", this.state);
+    // debugger
+    event.preventDefault();
     const { fields: { username, password } } = this.state;
-    this.props.loginUser(username, password, this.props.history);
+    this.props.loginUser( this.state.fields, this.props.history);
   };
 
   render() {
     const { fields } = this.state;
+    console.log("login", this.props);
     return (
-      <div>
-        {this.state.error ? <h1>Try Again</h1> : null}
-        <div className="ui form">
-          <form onSubmit={this.handleSubmit}>
-            <div className="ui field">
-              <label>Username</label>
-              <input
-                name="username"
-                placeholder="username"
-                value={fields.username}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="ui field">
-              <label>Password</label>
-              <input
-                name="password"
-                type="password"
-                placeholder="password"
-                value={fields.password}
-                onChange={this.handleChange}
-              />
-            </div>
-            <button type="submit">
+      <div className="flex mt-8 pt-8 justify-center">
+      <form className="w-full max-w-sm mt-8 bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 justify-center" onSubmit={this.handleSubmit}>
+        <div className="flex items-center mb-6">
+          <div className="md:w-1/3">
+            <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" >
+              Full Name
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker " id="inline-full-name" name='username' value={fields.username} onChange={this.handleChange} type="text" placeholder="username"></input>
+          </div>
+        </div>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-1/3">
+            <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4">
+              Password
+            </label>
+          </div>
+          <div className="md:w-2/3">
+            <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker" id="inline-username" name='password' value={fields.password} onChange={this.handleChange} type="password" placeholder="******************"></input>
+          </div>
+        </div>
+        <div className="md:flex md:items-center">
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
+            <button className="shadow bg-purple hover:bg-purple-light text-white font-bold py-2 px-4 rounded" type="submit">
               Login
             </button>
-          </form>
+          </div>
         </div>
+      </form>
       </div>
     );
   }

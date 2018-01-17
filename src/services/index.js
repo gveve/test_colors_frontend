@@ -11,7 +11,6 @@ const getHeaders = () => {
 
 class AuthAdapter {
   static signup(params) {
-    debugger
     return fetch(`${url}/users`, {
       method: "POST",
       headers: getHeaders(),
