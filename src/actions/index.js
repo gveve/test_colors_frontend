@@ -3,6 +3,7 @@ import {
   ASYNC_START,
   LOGOUT_USER,
   SET_CURRENT_USER,
+  TOGGLE_MODAL
 } from "./types";
 
 export function createUser(user, history) {
@@ -46,3 +47,7 @@ export function logoutUser() {
     dispatch({ type: 'LOGOUT_USER' });
   }
 };
+
+export function toggleModal() {
+  return { type: 'TOGGLE_MODAL' };
+}

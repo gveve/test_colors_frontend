@@ -36,6 +36,23 @@ class AuthAdapter {
       headers: getHeaders()
     }).then(res => res.json());
   }
+
+  static handleUpload(image, user) {
+    return fetch(`${url}/images`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json"
+      },
+      body: JSON.stringify({name: "thing", img: image, user_id: user})
+    }).then(res => res.json());
+  }
+
+  static getImages() {
+    return fetch(`${url}/images`, {
+      headers: getHeaders()
+    }).then(res => res.json());
+  }
 }
 
 export default AuthAdapter;

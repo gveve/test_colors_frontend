@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import AuthAdapter from "../services";
 import {connect} from 'react-redux'
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import * as actions from '../actions';
 import ProfileContainer from "./ProfileContainer"
 import PaintingContainer from "./PaintingContainer"
@@ -15,11 +17,12 @@ class HeaderContainer extends Component {
 
   handleLogout = () => {
     let thing = this.props
+
     this.props.logoutUser()
   }
 
   render() {
-
+    console.log("header", this.props);
     const logged_in =
                 <div className="w-full block flex-no-shrink lg:w-auto">
                   <div className="text-sm">
@@ -43,7 +46,7 @@ class HeaderContainer extends Component {
                   </div>
                 </div>
 
-      console.log("header", this.props);
+
 
     return (
 

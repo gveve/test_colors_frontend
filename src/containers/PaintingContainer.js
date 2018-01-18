@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import Login from '../components/Login'
 import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Canvas from '../components/Canvas'
+import AuthAdapter from "../services";
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import chroma from 'chroma-js'
 
@@ -13,18 +15,21 @@ class PaintingContainer extends React.Component{
     this.state={
       color1: '',
       color2: '',
-      colorscal: []
+      colorscal: [],
+      dataURL: ''
     }
   }
 
   handleColor = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
-      colorscal: []
+      colorscal: [],
+      dataURL: ''
     })
   }
 
   handleSubmit = (event) => {
+    event.preventDefault()
     // debugger;
     let color = [this.state.color1, this.state.color2]
     let colors = chroma.scale(colors).colors(10)
@@ -33,12 +38,24 @@ class PaintingContainer extends React.Component{
     })
   }
 
-  handleUpload = (event) => {
+  handleDataURL = (image) => {
+    // debugger;
+    this.setState({
+      dataURL: image
+    })
+  }
 
+  handleSave = (event) => {
+    if (this.state.dataURL != '') {
+      let image = this.state.dataURL
+      let user = this.props.currentUser.id
+      // debugger;
+      AuthAdapter.handleUpload(image, user)
+    }
   }
 
   render(){
-
+    console.log("painting", this.props);
     return(
       <div>
           <div className="flex">
@@ -67,15 +84,22 @@ class PaintingContainer extends React.Component{
               </div>
 
               <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent  hover:bg-white mt-4">
-                <button href="#" className="pl-2 text-sm text-white hover:text-teal">Save Canvas</button>
+                <button href="#" className="pl-2 text-sm text-white hover:text-teal" onClick={this.handleSave}>Save Canvas</button>
               </div>
 
             </div>
-            <Canvas handleUpload={this.handleUpload} colors={this.state}/>
+            <Canvas handleDataURL={this.handleDataURL} colors={this.state}/>
         </div>
       </div>
     )
   }
 }
 
-export default PaintingContainer;
+function mapStateToProps (state){
+  return {
+    currentUser: state.auth.currentUser,
+    loggedIn: !!state.auth.currentUser.id
+  }
+}
+
+export default connect(mapStateToProps, null)(PaintingContainer);
