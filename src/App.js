@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
+import SketchContainer from './sketch/SketchContainer'
 import HomepageContainer from './containers/HomepageContainer'
 import PaintingContainer from './containers/PaintingContainer'
 import ProfileContainer from './containers/ProfileContainer'
@@ -32,7 +33,8 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/profile" component={Profile} />
           <Route path="/signup" component={Signup} />
-          <Route path="/" component={HomepageContainer}/>
+          <Route exact path="/" component={HomepageContainer}/>
+          <Route path="/sketch" component={SketchContainer}/>
         </Switch>
       </div>
     );

@@ -28,7 +28,7 @@ class Profile extends React.Component{
         let imageSrc = "data:image/png;base64,"+`${image.img}`
       return (
         <div className=" flex-auto max-w-xs px-4 py-2 m-2 rounded overflow-hidden shadow-lg">
-        <img id="image" className="w-full" src={imageSrc}></img>
+         <img id="image" className="w-full" src={imageSrc}></img>
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
               <p className="text-grey-darker text-base">
