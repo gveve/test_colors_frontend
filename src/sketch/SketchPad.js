@@ -48,8 +48,6 @@ class SketchPad extends Component {
     tool: TOOL_PENCIL,
     toolsMap,
     colorscal: [],
-    color1: '',
-    color2: ''
   };
 
   constructor(props) {
@@ -83,7 +81,7 @@ class SketchPad extends Component {
   }
 
   onMouseDown(e) {
-    const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.colorscal);
+    const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor, this.props.fillColor2);
     data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
     if (this.props.onDebouncedItemChange) {
       this.interval = setInterval(this.onDebouncedMove, this.props.debounceTime);

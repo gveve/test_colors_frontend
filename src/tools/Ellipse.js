@@ -6,13 +6,15 @@ export default (context) => {
   let ellipse = null;
   let imageData = null;
 
-  const onMouseDown = (x, y, color, size, fill) => {
+  const onMouseDown = (x, y, color, size, fill, fill2) => {
+
     ellipse = {
       id: v4(),
       tool: TOOL_ELLIPSE,
       color,
       size,
       fill,
+      fill2,
       start: { x, y },
       end: null
     };
@@ -45,11 +47,27 @@ export default (context) => {
     const centerX = startX + radiusX;
     const centerY = startY + radiusY;
 
+    const x0 = endX - (endX/3)
+    const y0 = endY - (endY/3)
+    const r0 = radiusX/3
+    const x1 = endX - (endX/5)
+    const y1 = endY - (endY/5)
+    const r1 = (radiusY/5) * 2
+
+
+    console.log("startX", startX, "startY", startY, "endX", endX, "endY", endY, "radiusX", radiusX, "radiusY", radiusY, "centerX", centerX, "centerY", centerY, "mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y, r0);
+
+    let myGradient = context.createRadialGradient(x0, y0, r0, x1, y1, y1)
+
+    myGradient.addColorStop(0, item.fill);
+    myGradient.addColorStop(1, item.fill2);
+
+
     context.save();
     context.beginPath();
     context.lineWidth = item.size;
     context.strokeStyle = item.color;
-    context.fillStyle = item.fill;
+    context.fillStyle = myGradient;
 
     if (typeof context.ellipse === 'function') {
       context.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
@@ -64,6 +82,7 @@ export default (context) => {
 
   const onMouseMove = (x, y) => {
     if (!ellipse) return;
+    console.log("onMouseMoveElipse", x, y);
     context.putImageData(imageData, 0, 0);
     drawEllipse(ellipse, x, y);
   };
