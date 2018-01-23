@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import SketchPad from './SketchPad'
-import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE } from '../tools'
+import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle } from '../tools'
 import chroma from 'chroma-js'
 
 const toolsMap = {
   [TOOL_PENCIL]: Pencil,
   [TOOL_LINE]: Line,
   [TOOL_RECTANGLE]: Rectangle,
-  [TOOL_ELLIPSE]: Ellipse
+  [TOOL_ELLIPSE]: Ellipse,
+  [TOOL_PARTICLE]: Particle
 };
 
 
@@ -79,6 +80,11 @@ class SketchContainer extends Component{
                    className={tool == TOOL_RECTANGLE  ? 'item-active' : 'item'}
                    onClick={() => this.setState({tool:TOOL_RECTANGLE})}
                  >Rectangle</button>
+                 <button
+                   style={tool == TOOL_PARTICLE ? {fontWeight:'bold'} : undefined}
+                   className={tool == TOOL_PARTICLE  ? 'item-active' : 'item'}
+                   onClick={() => this.setState({tool:TOOL_PARTICLE})}
+                 >Particle</button>
                </div>
                <div className="options" style={{marginBottom:20}}>
                  <label htmlFor="">size: </label>

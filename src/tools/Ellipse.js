@@ -47,26 +47,29 @@ export default (context) => {
     const centerX = startX + radiusX;
     const centerY = startY + radiusY;
 
-    const x0 = endX - (endX/3)
-    const y0 = endY - (endY/3)
-    const r0 = radiusX/3
-    const x1 = endX - (endX/5)
-    const y1 = endY - (endY/5)
+    const x0 = centerX + (endX - centerX)/6
+    const y0 = centerY + (endY - centerY)/6
+    const r0 = radiusX/6
+    const x1 = centerX + (endX - centerX)/5
+    const y1 = centerY + (endY - centerY)/5
     const r1 = (radiusY/5) * 2
 
+    console.log("x0", x0, "y0", y0, "r0", r0, "x1", x1, "y1", y1, "r1", r1);
 
     console.log("startX", startX, "startY", startY, "endX", endX, "endY", endY, "radiusX", radiusX, "radiusY", radiusY, "centerX", centerX, "centerY", centerY, "mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y, r0);
 
     let myGradient = context.createRadialGradient(x0, y0, r0, x1, y1, y1)
 
     myGradient.addColorStop(0, item.fill);
-    myGradient.addColorStop(1, item.fill2);
+    myGradient.addColorStop(0.5, "rgba(255, 255, 255, 0.4)");
+    myGradient.addColorStop(1, "rgba(255, 255, 255, 0.0)");
 
 
     context.save();
     context.beginPath();
-    context.lineWidth = item.size;
-    context.strokeStyle = item.color;
+    // context.lineWidth = item.size;
+    context.globalAlpha = 0.5
+    // context.strokeStyle = item.color;
     context.fillStyle = myGradient;
 
     if (typeof context.ellipse === 'function') {
@@ -74,7 +77,7 @@ export default (context) => {
     } else {
       drawEllipsePolifyll(centerX, centerY, radiusX, radiusY);
     }
-    context.stroke();
+    // context.stroke();
     if (item.fill) context.fill();
     context.closePath();
     context.restore();

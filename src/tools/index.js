@@ -18,3 +18,8 @@ export {
   default as Rectangle,
   TOOL_RECTANGLE
 } from './Rectangle';
+
+export {
+  default as Particle,
+  TOOL_PARTICLE
+} from './Particle';

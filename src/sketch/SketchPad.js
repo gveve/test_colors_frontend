@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Sketch from 'sketch-js/js/sketch'
 import { findDOMNode } from 'react-dom'
-import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE } from '../tools'
+import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle } from '../tools'
 import chroma from 'chroma-js'
 
 export const toolsMap = {
   [TOOL_PENCIL]: Pencil,
   [TOOL_LINE]: Line,
   [TOOL_RECTANGLE]: Rectangle,
-  [TOOL_ELLIPSE]: Ellipse
+  [TOOL_ELLIPSE]: Ellipse,
+  [TOOL_PARTICLE]: Particle
 };
 
 class SketchPad extends Component {
@@ -48,6 +50,9 @@ class SketchPad extends Component {
     tool: TOOL_PENCIL,
     toolsMap,
     colorscal: [],
+    r: Math.floor(Math.random() * 200),
+    g: Math.floor(Math.random() * 200),
+    b: Math.floor(Math.random() * 200)
   };
 
   constructor(props) {
@@ -64,6 +69,9 @@ class SketchPad extends Component {
     this.canvas = findDOMNode(this.canvasRef);
     this.ctx = this.canvas.getContext('2d');
     this.initTool(this.props.tool);
+    // console.log("component", this.props);
+    this.ctx.fillStyle = `rgb(${this.props.r},${this.props.g},${this.props.b})`;
+    this.ctx.fillRect(0, 0, this.width, this.height)
   }
 
   componentWillReceiveProps({tool, items}) {
@@ -97,6 +105,19 @@ class SketchPad extends Component {
   onMouseMove(e) {
     const data = this.tool.onMouseMove(...this.getCursorPosition(e));
     data && data[0] && this.props.onEveryItemChange && this.props.onEveryItemChange.apply(null, data);
+    this.colorMe(e)
+  }
+
+  colorMe(e) {
+    let canvas = document.getElementById('canvas')
+    let ctx = canvas.getContext('2d');
+    let mouse = this.getCursorPosition(e)
+    let r = Math.round(255 * (mouse[0] / this.props.width))
+    let g = Math.round(255 * (mouse[1] / this.props.height))
+    let b = Math.round(255 * Math.abs(Math.cos(Math.PI * mouse[1] / this.props.width)))
+    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
+    // debugger
+    ctx.fillRect = (0, 0, this.props.width, this.props.height)
   }
 
   onMouseUp(e) {
@@ -120,7 +141,7 @@ class SketchPad extends Component {
     console.log("render", this.props);
     const {width, height, canvasClassName} = this.props;
     return (
-      <canvas
+      <canvas id='canvas'
         ref={(canvas) => { this.canvasRef = canvas; }}
         className={canvasClassName}
         onMouseDown={this.onMouseDown}
