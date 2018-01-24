@@ -52,7 +52,7 @@ export default (context) => {
     const r0 = radiusX/6
     const x1 = centerX + (endX - centerX)/5
     const y1 = centerY + (endY - centerY)/5
-    const r1 = (radiusY/5) * 2
+    const r1 = radiusY/5
 
     console.log("x0", x0, "y0", y0, "r0", r0, "x1", x1, "y1", y1, "r1", r1);
 
@@ -61,7 +61,8 @@ export default (context) => {
     let myGradient = context.createRadialGradient(x0, y0, r0, x1, y1, y1)
 
     myGradient.addColorStop(0, item.fill);
-    myGradient.addColorStop(0.5, "rgba(255, 255, 255, 0.4)");
+    myGradient.addColorStop(0.4, "rgba(255, 255, 255, 0.2)");
+    myGradient.addColorStop(0.6, "rgba(255, 255, 255, 0.0)");
     myGradient.addColorStop(1, "rgba(255, 255, 255, 0.0)");
 
 
@@ -73,13 +74,15 @@ export default (context) => {
     context.fillStyle = myGradient;
 
     if (typeof context.ellipse === 'function') {
+      debugger
       context.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
     } else {
       drawEllipsePolifyll(centerX, centerY, radiusX, radiusY);
     }
     // context.stroke();
-    if (item.fill) context.fill();
+    if (item.fill)
     context.closePath();
+    context.fill();
     context.restore();
   };
 

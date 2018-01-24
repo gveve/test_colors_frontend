@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SketchPad from './SketchPad'
-import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle } from '../tools'
+import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower } from '../tools'
 import chroma from 'chroma-js'
 
 const toolsMap = {
@@ -8,7 +8,9 @@ const toolsMap = {
   [TOOL_LINE]: Line,
   [TOOL_RECTANGLE]: Rectangle,
   [TOOL_ELLIPSE]: Ellipse,
-  [TOOL_PARTICLE]: Particle
+  [TOOL_PARTICLE]: Particle,
+  [TOOL_POLYGON]: Polygon,
+  [TOOL_FLOWER]: Flower
 };
 
 
@@ -85,6 +87,16 @@ class SketchContainer extends Component{
                    className={tool == TOOL_PARTICLE  ? 'item-active' : 'item'}
                    onClick={() => this.setState({tool:TOOL_PARTICLE})}
                  >Particle</button>
+                 <button
+                   style={tool == TOOL_POLYGON ? {fontWeight:'bold'} : undefined}
+                   className={tool == TOOL_POLYGON  ? 'item-active' : 'item'}
+                   onClick={() => this.setState({tool:TOOL_POLYGON})}
+                 >Polygon</button>
+                 <button
+                   style={tool == TOOL_FLOWER ? {fontWeight:'bold'} : undefined}
+                   className={tool == TOOL_FLOWER  ? 'item-active' : 'item'}
+                   onClick={() => this.setState({tool:TOOL_FLOWER})}
+                 >Flower</button>
                </div>
                <div className="options" style={{marginBottom:20}}>
                  <label htmlFor="">size: </label>

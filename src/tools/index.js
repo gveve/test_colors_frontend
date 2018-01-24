@@ -23,3 +23,13 @@ export {
   default as Particle,
   TOOL_PARTICLE
 } from './Particle';
+
+export {
+  default as Polygon,
+  TOOL_POLYGON
+} from './Polygon';
+
+export {
+  default as Flower,
+  TOOL_FLOWER
+} from './Flower';
