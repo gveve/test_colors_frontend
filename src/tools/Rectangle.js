@@ -5,6 +5,8 @@ export const TOOL_RECTANGLE = 'rectangle';
 export default (context) => {
   let rectangle = null;
   let imageData = null;
+  var cw = context.canvas.width;
+  var ch = context.canvas.height;
 
   const onMouseDown = (x, y, color, size, fill) => {
     rectangle = {
@@ -26,13 +28,23 @@ export default (context) => {
     const widthX = Math.abs(item.start.x - mouseX);
     const widthY = Math.abs(item.start.y - mouseY);
 
+    // debugger;
+    console.log("mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y);
+
+    let myGradient = context.createLinearGradient(startX, 0, cw/2, 0)
+
+    myGradient.addColorStop(0, item.color);
+    myGradient.addColorStop(1, "rgba(255, 255, 255, 0.0)");
+
     context.beginPath();
     context.lineWidth = item.size;
-    context.strokeStyle = item.color;
-    context.fillStyle = item.fill;
-    context.rect(startX, startY, widthX, widthY);
+    // context.strokeStyle = item.color;
+    context.fillStyle = myGradient;
+    // context.rect(startX, startY, widthX, widthY);
+    context.globalAlpha = 0.5
+    context.fillRect(startX, startY, widthX, widthY)
     context.stroke();
-    if (item.fill) context.fill();
+    if (item.color) context.fill();
   };
 
   const onMouseMove = (x, y) => {
@@ -46,6 +58,7 @@ export default (context) => {
   const onMouseUp = (x, y) => {
     if (!rectangle) return;
     onMouseMove(x, y);
+    // debugger;
     const item = rectangle;
     imageData = null;
     rectangle = null;

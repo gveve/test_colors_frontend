@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { GUI } from 'dat-gui'
 import Alea from 'alea'
 import newArray from 'new-array'
+import chroma from 'chroma-js'
 
 export const TOOL_FLOWER = 'Flower';
 
@@ -14,6 +15,7 @@ export default (context) => {
   let points = [];
   var n = 15;
   var rows_ = 5;
+  let COLOURS = []
 
   const onMouseDown = (x, y, color, size) => {
 
@@ -24,17 +26,17 @@ export default (context) => {
       size,
       points: [{ x, y }]
     };
-    return [stroke];
 
+    COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-
+    return [stroke];
     // drawParticlePolifyll(x, y, Math.random( 5, 40 ))
-    var n = 15;
-    var rows_ = 5;
-
-    for(var l = 0; l < n; ++l) {
-      flowers.push(generateFlower());
-    }
+    // var n = 15;
+    // var rows_ = 5;
+    //
+    // for(var l = 0; l < n; ++l) {
+    //   flowers.push(generateFlower());
+    // }
 
   };
 
@@ -51,36 +53,36 @@ export default (context) => {
   }
 
 
-  const generateFlower = () => {
-		var flower = [];
-
-		var previousRadius = 0.0;
-			previousRadius += random(0.1, 0.2);
-
-			var colorPrimary =
-				'rgb(' +
-					randomi(0, 255) + ',' +
-					randomi(0, 255) + ',' +
-					randomi(0, 255) + ')';
-
-			var params = [
-				random(0, 0.07),
-				randomi(5, 20),
-				random(5, 10),
-				random(0.5, 2)
-			];
-
-			flower.unshift({
-				radius 			: previousRadius,
-				colorPrimary 	: colorPrimary,
-				type 			: random(['wave', 'wave']),
-				params 			: params,
-				x_0 			: random(0.0,0.1),
-				x_1				: 0
-			});
-
-		return flower;
-	}
+  // const generateFlower = () => {
+	// 	var flower = [];
+  //
+	// 	var previousRadius = 0.0;
+	// 		previousRadius += random(0.1, 0.2);
+  //
+	// 		var colorPrimary =
+	// 			'rgb(' +
+	// 				randomi(0, 255) + ',' +
+	// 				randomi(0, 255) + ',' +
+	// 				randomi(0, 255) + ')';
+  //
+	// 		var params = [
+	// 			random(0, 0.07),
+	// 			randomi(5, 20),
+	// 			random(5, 10),
+	// 			random(0.5, 2)
+	// 		];
+  //
+	// 		flower.unshift({
+	// 			radius 			: previousRadius,
+	// 			colorPrimary 	: colorPrimary,
+	// 			type 			: random(['wave', 'wave']),
+	// 			params 			: params,
+	// 			x_0 			: random(0.0,0.1),
+	// 			x_1				: 0
+	// 		});
+  //
+	// 	return flower;
+	// }
 
 	// var n = 15;
 	// var rows_ = 5;
@@ -118,20 +120,19 @@ export default (context) => {
   const drawFlower = (item, start, { x, y }) => {
 
     // debugger;
-    for (var i = 0; i < points.length; i++) {
       var flower = new Flower(x, y, Math.floor((Math.random()* 40 )+1 ))
       flowers.push(flower)
       console.log(flowers);
+      let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
       context.save();
       // debugger;
-      context.lineJoin = 'round';
+      // context.lineJoin = 'round';
       // context.lineCap = 'round';
-
-      context.beginPath();
+      // context.clip()
 
       context.lineWidth = flower.radius
-      context.strokeStyle = '#69D2E7'
-
+      context.strokeStyle = clr
+      context.beginPath();
       context.translate( x + Math.random()* 40,  y + Math.random()* 40 );
 
       // ctx.scale(min_ * 0.9, min_ * 0.9);
@@ -139,6 +140,7 @@ export default (context) => {
       var radius = Math.abs(flower.x_0);
       var angleStep = (Math.PI * 2)/140;
       context.globalAlpha = 0.4
+
       context.moveTo(radius*Math.cos(0.0),radius*Math.sin(0.0));
       for(var angle = 0.0; angle < Math.PI * 2; angle += angleStep) {
         context.fillStyle = flower.color;
@@ -156,17 +158,12 @@ export default (context) => {
            context.fill()
       };
 
-      //
-			// context.translate(
-			// 	row * context.width/(rows + 1),
-			//  column * context.height/(columns + 1));
-      //
 			// context.scale(min_ * 0.9, min_ * 0.9);
       context.closePath();
       context.stroke();
-      // context.arc(x, y, particle.radius/2, 0, Math.PI*2, true);
+      context.arc(x, y, radius/2, 0, Math.PI*2, true);
       context.restore();
-      }
+
     }
 
   const onMouseMove = (x, y) => {

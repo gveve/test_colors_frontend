@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Sketch from 'sketch-js/js/sketch'
 import { findDOMNode } from 'react-dom'
-import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower } from '../tools'
+import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower, TOOL_POLY, Poly } from '../tools'
 import chroma from 'chroma-js'
 
 const toolsMap = {
@@ -12,7 +12,8 @@ const toolsMap = {
   [TOOL_ELLIPSE]: Ellipse,
   [TOOL_PARTICLE]: Particle,
   [TOOL_POLYGON]: Polygon,
-  [TOOL_FLOWER]: Flower
+  [TOOL_FLOWER]: Flower,
+  [TOOL_POLY]: Poly,
 };
 
 class SketchPad extends Component {
@@ -28,7 +29,6 @@ class SketchPad extends Component {
     canvasClassName: PropTypes.string,
     color: PropTypes.string,
     fillColor: PropTypes.string,
-    fillColor2: PropTypes.string,
     size: PropTypes.number,
     tool: PropTypes.string,
     toolsMap: PropTypes.object,
@@ -45,7 +45,6 @@ class SketchPad extends Component {
     color: '#000',
     size: 5,
     fillColor: '',
-    fillColor2: '',
     canvasClassName: 'canvas',
     debounceTime: 1000,
     animate: true,

@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import chroma from 'chroma-js'
 
 export const TOOL_POLY = 'Poly';
 
@@ -11,23 +12,33 @@ export default (context) => {
   var coordinates = [];
   var isDone=false;
   var vertex = [];
+  var cw = context.canvas.width;
+  var ch = context.canvas.height;
+  let COLOURS = []
 
-  const onMouseDown = (x, y, color, size) => {
+  const onMouseDown = (x, y, color, fill, fillColor, size) => {
     poly = {
       id: v4(),
       tool: TOOL_POLY,
       color,
       size,
-      points: [{ x, y }]
+      fillColor,
+      points: [{ x, y }],
     };
+
+    COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
+      console.log(poly);
     return [poly];
 
-    BB=canvas.getBoundingClientRect();
+  };
+
+  const drawLine = (item, start, { x, y }) => {
+    BB=context.canvas.getBoundingClientRect();
     offsetX=BB.left;
     offsetY=BB.top;
 
-    const startX = x;
-    const startY = y;
+    const startX = start.x;
+    const startY = start.y;
     let radius = Math.floor((Math.random()* 40 )+1);
     // let side = 2 * radius Math.tan(180/8);
 
@@ -37,22 +48,7 @@ export default (context) => {
     var centerAng = 2*Math.PI/n;
     var r = radius;  //radius. Dist from center to a vertex
     var ang;
-    var startAng = startAng = Math.PI/2
-
-    function toRadians(degs)
-  { return Math.PI*degs/180;
-  }
-
-    if(startAng == 0) //none supplied
-     {  if(isOdd(n))
-         startAng = Math.PI/2;  //12 oclock
-    else
-       startAng = Math.PI/2 - centerAng/2;
-     }
-
-    function isOdd(n)
-      { return (n%2 == 1);
-    }
+    var startAng = Math.PI/2
 
     for(var i=0 ; i<n ; i++)
       { ang = startAng + (i*centerAng);
@@ -60,19 +56,23 @@ export default (context) => {
         let vy = Math.round(cy - r*Math.sin(ang));
         vertex.push( {X:vx , Y:vy} );
       }
-  };
 
-  const drawLine = (item, start, { x, y }) => {
+    let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
     context.lineWidth=2;
-    context.strokeStyle='blue';
-    context.clearRect(0,0,cw,ch);
+    context.strokeStyle=clr;
+    // context.clearRect(0,0,cw,ch);
     context.beginPath();
-    context.moveTo(vertex[0].x, vertex[0].y);
+    context.moveTo(vertex[0].X, vertex[0].Y);
     for(var index=1; index<vertex.length;index++) {
-      context.lineTo(vertex[index].x, vertex[index].y);
+      context.lineTo(vertex[index].X, vertex[index].Y);
     }
+    // context.clip()
+    context.globalAlpha = 0.5
+    context.fillStyle = clr
     context.closePath();
     context.stroke();
+    context.restore();
+    // if (item.fill) context.fill()
   };
 
   const onMouseMove = (x, y) => {
@@ -94,8 +94,9 @@ export default (context) => {
 
   const onMouseUp = (x, y) => {
     if (!poly) return;
-    onMouseMove(x, y);
+    // onMouseMove(x, y);
     points = [];
+    vertex = []
     const item = poly;
     poly = null;
     return [item];

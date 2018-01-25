@@ -60,7 +60,7 @@ export default (context) => {
 
     let myGradient = context.createRadialGradient(x0, y0, r0, x1, y1, y1)
 
-    myGradient.addColorStop(0, item.fill);
+    myGradient.addColorStop(0, item.color);
     myGradient.addColorStop(0.4, "rgba(255, 255, 255, 0.2)");
     myGradient.addColorStop(0.6, "rgba(255, 255, 255, 0.0)");
     myGradient.addColorStop(1, "rgba(255, 255, 255, 0.0)");
@@ -74,13 +74,14 @@ export default (context) => {
     context.fillStyle = myGradient;
 
     if (typeof context.ellipse === 'function') {
-      debugger
+      // debugger
       context.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, 2 * Math.PI);
     } else {
+
       drawEllipsePolifyll(centerX, centerY, radiusX, radiusY);
     }
     // context.stroke();
-    if (item.fill)
+    if (item.color)
     context.closePath();
     context.fill();
     context.restore();

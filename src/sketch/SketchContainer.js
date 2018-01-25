@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SketchPad from './SketchPad'
-import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower } from '../tools'
+import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower, TOOL_POLY, Poly } from '../tools'
 import chroma from 'chroma-js'
 
 const toolsMap = {
@@ -10,7 +10,8 @@ const toolsMap = {
   [TOOL_ELLIPSE]: Ellipse,
   [TOOL_PARTICLE]: Particle,
   [TOOL_POLYGON]: Polygon,
-  [TOOL_FLOWER]: Flower
+  [TOOL_FLOWER]: Flower,
+  [TOOL_POLY]: Poly,
 };
 
 
@@ -53,8 +54,7 @@ class SketchContainer extends Component{
                  animate={true}
                  size={size}
                  color={color}
-                 fillColor={fill ? fillColor : ''}
-                 fillColor2={fill ? fillColor2 : ''}
+                 fillColor={fill ? color : ''}
                  colorscal={colorscal}
                  items={items}
                  tool={tool}
@@ -97,6 +97,11 @@ class SketchContainer extends Component{
                    className={tool == TOOL_FLOWER  ? 'item-active' : 'item'}
                    onClick={() => this.setState({tool:TOOL_FLOWER})}
                  >Flower</button>
+                 <button
+                   style={tool == TOOL_POLY ? {fontWeight:'bold'} : undefined}
+                   className={tool == TOOL_POLY  ? 'item-active' : 'item'}
+                   onClick={() => this.setState({tool:TOOL_POLY})}
+                 >Poly</button>
                </div>
                <div className="options" style={{marginBottom:20}}>
                  <label htmlFor="">size: </label>
@@ -106,22 +111,28 @@ class SketchContainer extends Component{
                  <label htmlFor="">color: </label>
                  <input type="color" value={color} onChange={(e) => this.setState({color: e.target.value})} />
                </div>
-               {(this.state.tool == TOOL_ELLIPSE || this.state.tool == TOOL_RECTANGLE) ?
-                 <div>
-                   <label htmlFor="">fill in:</label>
-                   <input type="checkbox" value={fill} style={{margin:'0 8'}}
-                          onChange={(e) => this.setState({fill: e.target.checked})} />
-                   {fill ? <span>
-                       <label htmlFor="">with color:</label>
-                       <input type="color" value={fillColor} onChange={(e) => this.setState({fillColor: e.target.value})} />
-                         <label htmlFor="">with color:</label>
-                         <input type="color" value={fillColor2} onChange={this.gradient} />
-                       </span> : ''}
-                 </div> : ''}
+               {(this.state.tool == TOOL_ELLIPSE || this.state.tool == TOOL_RECTANGLE || this.state.tool == TOOL_POLYGON || this.state.tool == TOOL_POLY) ?
+                <div>
+                  <label htmlFor="">fill in:</label>
+                  <input type="checkbox" value={fill} style={{margin:'0 8'}} onChange={(e) => this.setState({fill: e.target.checked})} ></input>
+                </div> : ''}
              </div>
            </div>
     );
   }
 }
+
+// {(this.state.tool == TOOL_ELLIPSE || this.state.tool == TOOL_RECTANGLE) ?
+//   <div>
+//     <label htmlFor="">fill in:</label>
+//     <input type="checkbox" value={fill} style={{margin:'0 8'}}
+//            onChange={(e) => this.setState({fill: e.target.checked})} />
+//     {fill ? <span>
+//         <label htmlFor="">with color:</label>
+//         <input type="color" value={fillColor} onChange={(e) => this.setState({fillColor: e.target.value})} />
+//           <label htmlFor="">with color:</label>
+//           <input type="color" value={fillColor2} onChange={this.gradient} />
+//         </span> : ''}
+//   </div> : ''}
 
 export default SketchContainer;

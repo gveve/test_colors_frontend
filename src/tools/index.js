@@ -33,3 +33,8 @@ export {
   default as Flower,
   TOOL_FLOWER
 } from './Flower';
+
+export {
+  default as Poly,
+  TOOL_POLY
+} from './Poly';

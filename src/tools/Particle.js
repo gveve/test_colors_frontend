@@ -3,13 +3,14 @@ import { v4 } from 'uuid';
 import { GUI } from 'dat-gui'
 import Alea from 'alea'
 import newArray from 'new-array'
+import chroma from 'chroma-js'
 
 export const TOOL_PARTICLE = 'Particle';
 
 export default (context) => {
   let imageData = null;
   let MAX_PARTICLES = 280;
-  let COLOURS = [ '#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900', '#FF4E50', '#F9D423' ];
+  let COLOURS = [ ];
   var particles = [];
   var pool = [];
   let stroke = null;
@@ -32,10 +33,12 @@ export default (context) => {
       size,
       points: [{ x, y }]
     };
-    return [stroke];
-
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-
+    console.log(color);
+    // debugger;
+    COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
+    // debugger;
+    return [stroke];
     // drawParticlePolifyll(x, y, Math.random( 5, 40 ))
 
   };
@@ -47,7 +50,7 @@ export default (context) => {
           // this.wander = 0.15;
           // this.theta = random( 2 * Math.pi );
           // this.drag = 0.92;
-          this.color = '#fff';
+          this.color = ''
           // this.x = x || 0.0;
           // this.y = y || 0.0;
           // this.vx = 0.0;
@@ -73,12 +76,13 @@ export default (context) => {
 
   const drawParticle = (item, start, { x, y }) => {
     // debugger;
-    for (var i = 0; i <= points.length; i++) {
+
       var particle, theta, force;
       // debugger;
       particle = new Particle( x, y, Math.floor((Math.random()* 40 )+1 ));
       // particle.wander = Math.floor(Math.random()* 2);
       particle.color = COLOURS[(Math.floor(Math.random()*COLOURS.length)+1)];
+      // debugger
       // particle.drag = Math.random( 0.9, 0.99 );
       // theta = Math.random( 2 * Math.PI );
       // force = Math.random( 2, 8 );
@@ -102,7 +106,7 @@ export default (context) => {
       context.stroke();
       // context.arc(x, y, particle.radius/2, 0, Math.PI*2, true);
       context.restore();
-    }
+
     console.log(particles.length);
   };
 

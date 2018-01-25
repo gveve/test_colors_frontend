@@ -1,10 +1,12 @@
 import { v4 } from 'uuid';
+import chroma from 'chroma-js'
 
 export const TOOL_PENCIL = 'pencil';
 
 export default (context) => {
   let stroke = null;
   let points = [];
+  let COLOURS = []
 
   const onMouseDown = (x, y, color, size) => {
     stroke = {
@@ -14,17 +16,22 @@ export default (context) => {
       size,
       points: [{ x, y }]
     };
+
+    COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
+
     return [stroke];
   };
 
   const drawLine = (item, start, { x, y }) => {
+    let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
     context.save();
     context.lineJoin = 'round';
     context.lineCap = 'round';
     context.beginPath();
     context.lineWidth = item.size;
-    context.strokeStyle = item.color;
-    context.globalCompositeOperation = 'source-over';
+    context.strokeStyle = clr ;
+    context.globalAlpha = (0.5)
+    context.globalCompositeOperation = 'luminosity';
     context.moveTo(start.x, start.y);
     context.lineTo(x, y);
     context.closePath();
