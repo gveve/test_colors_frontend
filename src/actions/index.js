@@ -42,7 +42,7 @@ export function fetchUser(){
 }
 
 export function saveImage(data, user, history){
-  // debugger;
+  debugger;
   return dispatch => {
     AuthAdapter.handleUpload(data, user)
     history.push('/profile')

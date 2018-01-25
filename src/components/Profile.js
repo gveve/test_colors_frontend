@@ -17,7 +17,7 @@ class Profile extends React.Component{
   }
 
   componentDidMount = () => {
-    this.getImages()
+    this.getImages(this.props.currentUser.id)
   }
 
   showImages = () => {

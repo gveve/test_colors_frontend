@@ -82,7 +82,7 @@ class PaintingContainer extends React.Component{
   }
 
   handleSave = (data) => {
-    // debugger;
+    debugger;
       let image = data
       let user = this.props.currentUser.id
       this.props.saveImage(image, user, this.props.history)
