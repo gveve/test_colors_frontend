@@ -16,18 +16,18 @@ export default (context) => {
   var ch = context.canvas.height;
   let COLOURS = []
 
-  const onMouseDown = (x, y, color, fill, fillColor, size) => {
+  const onMouseDown = (x, y, color, size, fill) => {
     poly = {
       id: v4(),
       tool: TOOL_POLY,
       color,
       size,
-      fillColor,
+      fill,
       points: [{ x, y }],
     };
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
-      console.log(poly);
+      console.log("down",poly);
     return [poly];
 
   };
@@ -56,9 +56,9 @@ export default (context) => {
         let vy = Math.round(cy - r*Math.sin(ang));
         vertex.push( {X:vx , Y:vy} );
       }
-
+      console.log(item);
     let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
-    context.lineWidth=2;
+    context.lineWidth=item.size;
     context.strokeStyle=clr;
     // context.clearRect(0,0,cw,ch);
     context.beginPath();

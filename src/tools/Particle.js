@@ -96,7 +96,7 @@ export default (context) => {
       context.lineCap = 'round';
       context.beginPath();
       context.fillStyle = particle
-      context.lineWidth = particle.radius;
+      context.lineWidth = particle.radius * (item.size/2);
       context.strokeStyle = particle.color;
       // context.globalCompositeOperation = 'lighter';
       context.globalAlpha = 0.4

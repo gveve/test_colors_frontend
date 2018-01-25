@@ -16,7 +16,7 @@ export default (context) => {
   var ch = context.canvas.height;
   let COLOURS = []
 
-  const onMouseDown = (x, y, color, fill, size) => {
+  const onMouseDown = (x, y, color, size, fill) => {
 
     polygon = {
       id: v4(),
@@ -28,7 +28,7 @@ export default (context) => {
     };
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
-
+console.log(polygon);
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
 
     return [polygon];
@@ -60,11 +60,11 @@ export default (context) => {
         { ang = startAng + (i*centerAng);
           let vx = Math.round(cx + r*Math.cos(ang));
           let vy = Math.round(cy - r*Math.sin(ang));
-          vertex.push( {X:vx , Y:vy} );
+          vertex.push( {X:vx, Y:vy} );
         }
 
       let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
-      context.lineWidth=2;
+      context.lineWidth=item.size;
       context.strokeStyle=clr;
       // context.clearRect(0,0,cw,ch);
       context.beginPath();
@@ -79,7 +79,7 @@ export default (context) => {
       context.stroke();
       context.restore();
       // vertex = []
-      if (item.fill) context.fill()
+      if (item.size) context.fill()
 
   };
 

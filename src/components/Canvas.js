@@ -61,12 +61,15 @@ class Canvas extends Component {
 
   constructor(props) {
     super(props);
-    console.log("sp-props", props);
+    // console.log("sp-props", props);
     this.initTool = this.initTool.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onDebouncedMove = this.onDebouncedMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.state=({
+      thing: ''
+    })
   }
 
   componentDidMount() {
@@ -76,7 +79,7 @@ class Canvas extends Component {
     // console.log(thing);
     this.canvas.style.backgroundColor = thing
     this.initTool(this.props.tool);
-    console.log("component", this.props);
+    // console.log("component", this.props);
   }
 
   componentWillReceiveProps({tool, items}) {
@@ -121,8 +124,11 @@ class Canvas extends Component {
     let g = Math.round(255 * (mouse[1] / this.props.height))
     let b = Math.round(255 * Math.abs(Math.cos(Math.PI * mouse[1] / this.props.width)))
     let thing = chroma(`${r}`, `${g}`, `${b}`).hex()
-    console.log(thing);
-    this.canvas.style.backgroundColor = thing
+    this.setState({
+      thing: thing
+    })
+    // console.log(thing, this.state);
+    this.canvas.style.backgroundColor = this.state.thing
   }
 
   onMouseUp(e) {
@@ -142,11 +148,28 @@ class Canvas extends Component {
     ];
   }
 
+
   render() {
-    console.log("render", this.props);
+    // console.log("render", this.props);
     const {width, height, canvasClassName} = this.props;
+
+    if (this.props.save === true) {
+
+      let canvas = document.getElementById('canvas')
+      let context = canvas.getContext('2d')
+      let imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height)
+      // context.putImageData(imageData, 0, 0)
+      // let thing = chroma(`${this.props.r}`, `${this.props.g}`, `${this.props.b}`).hex()
+      context.globalCompositeOperation = "destination-over";
+      context.fillStyle = this.state.thing;
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      let image = document.getElementById('canvas');
+      let dataIMG = image.toDataURL("image/png");
+       let data = dataIMG.replace(/^data:image\/(png|jpg);base64,/, "");
+       this.props.handleSave(data);
+    }
     return (
-       <div className="flex w-5/6 h-auto">
+       <div className='static pin-b pin-r'>
       <canvas id='canvas'
         ref={(canvas) => { this.canvasRef = canvas; }}
         className={canvasClassName}
@@ -154,7 +177,7 @@ class Canvas extends Component {
         onMouseMove={this.onMouseMove}
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
-        width={window.innerWidth}
+        width={window.innerWidth - window.innerWidth/6}
         height={window.innerHeight}
       />
       </div>

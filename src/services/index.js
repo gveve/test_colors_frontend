@@ -1,3 +1,4 @@
+// import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 
 const url = "http://localhost:3000/api/v1";
 
@@ -38,6 +39,7 @@ class AuthAdapter {
   }
 
   static handleUpload(image, user) {
+    // debugger;
     return fetch(`${url}/images`, {
       method: "POST",
       headers: {
@@ -46,6 +48,7 @@ class AuthAdapter {
       },
       body: JSON.stringify({name: "thing", img: image, user_id: user})
     }).then(res => res.json());
+
   }
 
   static getImages() {
