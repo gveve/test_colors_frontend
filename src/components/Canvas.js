@@ -170,6 +170,7 @@ class Canvas extends Component {
     }
     return (
        <div className='static pin-b pin-r'>
+
       <canvas id='canvas'
         ref={(canvas) => { this.canvasRef = canvas; }}
         className={canvasClassName}
@@ -180,6 +181,7 @@ class Canvas extends Component {
         width={window.innerWidth - window.innerWidth/6}
         height={window.innerHeight}
       />
+
       </div>
     )
   }

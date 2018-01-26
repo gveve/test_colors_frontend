@@ -1,6 +1,6 @@
 // import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 
-const url = "http://localhost:3000/api/v1";
+const url = "https://vapor-paint.herokuapp.com/api/v1";
 
 const getHeaders = () => {
   return {
