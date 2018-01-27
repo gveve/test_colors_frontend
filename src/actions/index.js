@@ -3,7 +3,8 @@ import {
   ASYNC_START,
   LOGOUT_USER,
   SET_CURRENT_USER,
-  TOGGLE_MODAL
+  TOGGLE_MODAL,
+  SET_IMAGES
 } from "./types";
 
 export function createUser(user, history) {
