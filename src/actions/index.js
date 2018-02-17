@@ -7,6 +7,9 @@ import {
   SET_IMAGES
 } from "./types";
 
+const url = "http://localhost:3000/api/v1";
+const other = "https://vapor-paint.herokuapp.com/api/v1"
+
 export function createUser(user, history) {
   return dispatch => {
     AuthAdapter.signup(user).then(res => {
@@ -36,14 +39,13 @@ export function fetchUser(){
       Authorization: localStorage.getItem("token")
     }
   return dispatch => {
-    fetch("https://vapor-paint.herokuapp.com/api/v1/auth", {headers: getHeaders}).then(res => res.json()).then(response => dispatch({
+    fetch(`${url}/auth`, {headers: getHeaders}).then(res => res.json()).then(response => dispatch({
       type: 'SET_CURRENT_USER', user: response.user
     }))
   }
 }
 
 export function saveImage(data, user, history){
-  debugger;
   return dispatch => {
     AuthAdapter.handleUpload(data, user)
     history.push('/profile')

@@ -13,7 +13,7 @@ export default (context) => {
   let COLOURS = [ ];
   var particles = [];
   var pool = [];
-  let stroke = null;
+  let particle = null;
   let points = [];
 
   const random = ( min, max ) => {
@@ -26,7 +26,7 @@ export default (context) => {
 
   const onMouseDown = (x, y, color, size) => {
 
-    stroke = {
+    particle = {
       id: v4(),
       tool: TOOL_PARTICLE,
       color,
@@ -38,7 +38,7 @@ export default (context) => {
     // debugger;
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
     // debugger;
-    return [stroke];
+    return [particle];
     // drawParticlePolifyll(x, y, Math.random( 5, 40 ))
 
   };
@@ -111,29 +111,29 @@ export default (context) => {
   };
 
   const onMouseMove = (x, y) => {
-    if (!stroke) return [];
+    if (!particle) return [];
     const newPoint = { x, y };
-    const start = stroke.points.slice(-1)[0];
-    drawParticle(stroke, start, newPoint);
-    stroke.points.push(newPoint);
+    const start = particle.points.slice(-1)[0];
+    drawParticle(particle, start, newPoint);
+    particle.points.push(newPoint);
     points.push(newPoint);
     console.log(points);
 
-    return [stroke];
+    return [particle];
   };
 
   // const onDebouncedMouseMove = () => {
   //   const debouncedPoints = points;
   //   points = [];
-  //   return [stroke, debouncedPoints];
+  //   return [particle, debouncedPoints];
   // };
 
   const onMouseUp = (x, y) => {
-    if (!stroke) return;
+    if (!particle) return;
     onMouseMove(x, y);
     points = [];
-    const item = stroke;
-    stroke = null;
+    const item = particle;
+    particle = null;
     return [item];
   };
 

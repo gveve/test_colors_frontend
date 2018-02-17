@@ -67,7 +67,6 @@ class PaintingContainer extends React.Component{
 
   handleSubmit = (event) => {
     event.preventDefault()
-    // debugger;
     let color = [this.state.color1, this.state.color2]
     let colors = chroma.scale(colors).colors(10)
     this.setState({
@@ -82,7 +81,6 @@ class PaintingContainer extends React.Component{
   }
 
   handleSave = (data) => {
-    debugger;
       let image = data
       let user = this.props.currentUser.id
       this.props.saveImage(image, user, this.props.history)

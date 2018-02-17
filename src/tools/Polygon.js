@@ -54,8 +54,8 @@ console.log(polygon);
       var ang;
       var startAng = Math.PI/2
       var vertex = [];
+      vertex.push( {X:startX, Y:startY} )
 
-      console.log('steven ignores me');
       for(var i=0 ; i<n ; i++)
         { ang = startAng + (i*centerAng);
           let vx = Math.round(cx + r*Math.cos(ang));
@@ -66,11 +66,10 @@ console.log(polygon);
       let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
       context.lineWidth=item.size;
       context.strokeStyle=clr;
-      // context.clearRect(0,0,cw,ch);
       context.beginPath();
       context.globalCompositeOperation = 'screen'
       context.globalAlpha = 0.5
-      context.moveTo(vertex[0].X, vertex[0].Y);
+      context.moveTo = (vertex[0].X, vertex[0].Y);
       for(var index=1; index<vertex.length;index++) {
         context.lineTo(vertex[index].X, vertex[index].Y);
       }

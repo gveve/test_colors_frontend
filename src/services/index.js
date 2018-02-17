@@ -1,6 +1,7 @@
 // import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 
-const url = "https://vapor-paint.herokuapp.com/api/v1";
+const url = "http://localhost:3000/api/v1";
+const other = "https://vapor-paint.herokuapp.com/api/v1"
 
 const getHeaders = () => {
   return {
@@ -39,7 +40,6 @@ class AuthAdapter {
   }
 
   static handleUpload(image, user) {
-    // debugger;
     return fetch(`${url}/images`, {
       method: "POST",
       headers: {

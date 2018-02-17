@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 // import sketch from 'sketch-js/js/sketch'
 import { GUI } from 'dat-gui'
-import Alea from 'alea'
+// import Alea from 'alea'
 import newArray from 'new-array'
 import chroma from 'chroma-js'
 
@@ -11,7 +11,7 @@ export default (context) => {
 
   let imageData = null;
   var flowers = [];
-  let stroke = null;
+  let flower = null;
   let points = [];
   var n = 15;
   var rows_ = 5;
@@ -19,7 +19,7 @@ export default (context) => {
 
   const onMouseDown = (x, y, color, size) => {
 
-    stroke = {
+    flower = {
       id: v4(),
       tool: TOOL_FLOWER,
       color,
@@ -29,7 +29,7 @@ export default (context) => {
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-    return [stroke];
+    return [flower];
     // drawParticlePolifyll(x, y, Math.random( 5, 40 ))
     // var n = 15;
     // var rows_ = 5;
@@ -141,7 +141,7 @@ export default (context) => {
       var angleStep = (Math.PI * 2)/140;
       context.globalAlpha = 0.4
 
-      context.moveTo(radius*Math.cos(0.0),radius*Math.sin(0.0));
+      context.moveTo = (radius*Math.cos(0.0),radius*Math.sin(0.0));
       for(var angle = 0.0; angle < Math.PI * 2; angle += angleStep) {
         context.fillStyle = flower.color;
         // debugger;
@@ -167,29 +167,29 @@ export default (context) => {
     }
 
   const onMouseMove = (x, y) => {
-    if (!stroke) return [];
+    if (!flower) return [];
     const newPoint = { x, y };
-    const start = stroke.points.slice(-1)[0];
-    drawFlower(stroke, start, newPoint);
-    stroke.points.push(newPoint);
+    const start = flower.points.slice(-1)[0];
+    drawFlower(flower, start, newPoint);
+    flower.points.push(newPoint);
     points.push(newPoint);
     console.log(points);
 
-    return [stroke];
+    return [flower];
   };
 
   // const onDebouncedMouseMove = () => {
   //   const debouncedPoints = points;
   //   points = [];
-  //   return [stroke, debouncedPoints];
+  //   return [flower, debouncedPoints];
   // };
 
   const onMouseUp = (x, y) => {
-    if (!stroke) return;
+    if (!flower) return;
     onMouseMove(x, y);
     points = [];
-    const item = stroke;
-    stroke = null;
+    const item = flower;
+    flower = null;
     return [item];
   };
 

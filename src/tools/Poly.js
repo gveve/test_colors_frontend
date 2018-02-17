@@ -49,6 +49,7 @@ export default (context) => {
     var r = radius;  //radius. Dist from center to a vertex
     var ang;
     var startAng = Math.PI/2
+    // vertex.push( {X:startX, Y:startY} )
 
     for(var i=0 ; i<n ; i++)
       { ang = startAng + (i*centerAng);
@@ -56,17 +57,16 @@ export default (context) => {
         let vy = Math.round(cy - r*Math.sin(ang));
         vertex.push( {X:vx , Y:vy} );
       }
-      console.log(item);
+    // vertex.push( {X:startX, Y:startY} )
+
     let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
     context.lineWidth=item.size;
     context.strokeStyle=clr;
-    // context.clearRect(0,0,cw,ch);
     context.beginPath();
-    context.moveTo(vertex[0].X, vertex[0].Y);
+    context.moveTo = (vertex[0].X, vertex[0].Y);
     for(var index=1; index<vertex.length;index++) {
       context.lineTo(vertex[index].X, vertex[index].Y);
     }
-    // context.clip()
     context.globalAlpha = 0.5
     context.fillStyle = clr
     context.closePath();

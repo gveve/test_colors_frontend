@@ -31,7 +31,7 @@ class App extends Component {
         <HeaderContainer/>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile" component={ProfileContainer} />
           <Route path="/signup" component={Signup} />
           <Route exact path="/" component={HomepageContainer}/>
           <Route path="/sketch" component={SketchContainer}/>
