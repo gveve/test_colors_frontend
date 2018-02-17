@@ -88,7 +88,6 @@ class PaintingContainer extends React.Component{
 
   render(){
     const { tool, size, color, fill, fillColor, fillColor2, colorscal, items, save } = this.state;
-    console.log("painting", this.props, this.state);
     return(
       <div>
           <div className="flex">
@@ -152,7 +151,7 @@ class PaintingContainer extends React.Component{
                 onClick={() => this.setState({tool:TOOL_POLY})} >Poly</button>
               </div>
 
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 mb-8 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
                 <button href="#" className="pl-2 text-sm text-white hover:text-teal" onClick={this.wannaSave}>Save Canvas</button>
               </div>
 

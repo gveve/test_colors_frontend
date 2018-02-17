@@ -47,8 +47,17 @@ export function fetchUser(){
 
 export function saveImage(data, user, history){
   return dispatch => {
-    AuthAdapter.handleUpload(data, user)
-    history.push('/profile')
+    AuthAdapter.handleUpload(data, user);
+    history.push('/profile', data: data);
+    AuthAdapter.getImagesFetch();
+  }
+}
+
+export function getImages(){
+  return dispatch => {
+    AuthAdapter.getImagesFetch().then(response => dispatch({
+          type: 'SET_IMAGES', images: response
+    }))
   }
 }
 
@@ -60,5 +69,5 @@ export function logoutUser() {
 };
 
 export function toggleModal() {
-  return { type: 'TOGGLE_MODAL' };
+  return dispatch => { type: 'TOGGLE_MODAL' };
 }

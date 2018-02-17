@@ -51,7 +51,7 @@ class AuthAdapter {
 
   }
 
-  static getImages() {
+  static getImagesFetch() {
     return fetch(`${url}/images`, {
       headers: getHeaders()
     }).then(res => res.json());

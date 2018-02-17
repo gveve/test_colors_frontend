@@ -17,6 +17,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getImages()
     if (localStorage.getItem('token')) {
       this.props.fetchUser()
     } else {
@@ -42,6 +43,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: !!state.auth.currentUser.id
+  loggedIn: !!state.auth.currentUser.id,
+  imagesArray: state.imagesReducer.imagesArray
 });
+
 export default connect(mapStateToProps, actions)(App);

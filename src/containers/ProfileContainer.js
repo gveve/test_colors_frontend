@@ -15,37 +15,19 @@ class ProfileContainer extends React.Component{
   }
 
   getImages = () => {
-    AuthAdapter.getImages().then(response => this.setState({images: response}));
+
   }
 
-  componentDidMount = () => {
-    this.getImages(this.props.currentUser.id)
+  componentWillMount = () => {
+    this.props.getImages();
   }
 
-  showImages = () => {
-    // this.getImages()
-    if (this.state.images.length != 0) {
-      let images = this.state.images
-      // debugger
-      return images.map((image, i) => {
-        let imageSrc = "data:image/png;base64,"+`${image.img}`
-      return (
-        <div className=" flex-auto max-w-xs px-4 py-2 m-2 rounded overflow-hidden shadow-lg">
-         <img id="image" className="w-full" src={imageSrc}></img>
-          <div className="px-6 py-4">
-          </div>
-      </div>
-        )
-      })
-    }
-  }
 
 
   render(){
-
     return(
-      <div>
-        <Profile showImages = {this.showImages} />
+      <div className="h-screen bg-grey-lighter">
+        <Profile imgs={this.state.images}/>
       </div>
     )
   }
@@ -53,7 +35,8 @@ class ProfileContainer extends React.Component{
 
 function mapStateToProps (state){
   return {
-    currentUser: state.auth.currentUser
+    currentUser: state.auth.currentUser,
+    imagesArray: state.imagesReducer.imagesArray
   }
 }
 
