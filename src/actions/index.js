@@ -7,8 +7,8 @@ import {
   SET_IMAGES
 } from "./types";
 
-const url = "http://localhost:3000/api/v1";
-const other = "https://vapor-paint.herokuapp.com/api/v1"
+const other = "http://localhost:3000/api/v1";
+const url = "https://vapor-paint.herokuapp.com/api/v1"
 
 export function createUser(user, history) {
   return dispatch => {
