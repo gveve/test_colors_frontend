@@ -8,7 +8,7 @@ class About extends React.Component {
 
   render(){
     return(
-      <div className="flex justify-center bg-grey-lighter px-8 h-full">
+      <div className="flex justify-center px-8 ">
         <div className="items-start bg-grey-lighter bg-white shadow-md w-screen rounded px-8 mt-8 mb-8 py-8 h-auto">
           <div className="flex">
             <div className="flex-1 text-grey-darker text-center bg-grey-light px-4 py-2 m-2"></div>
