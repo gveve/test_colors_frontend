@@ -54,7 +54,7 @@ export default (context) => {
       var ang;
       var startAng = Math.PI/2
       var vertex = [];
-      vertex.push( {X:startX, Y:startY} )
+      // vertex.push( {X:startX, Y:startY} )
 
       for(var i=0 ; i<n ; i++)
         { ang = startAng + (i*centerAng);
