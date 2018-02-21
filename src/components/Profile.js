@@ -27,7 +27,6 @@ class Profile extends React.Component{
 
 
   showImages = () => {
-    console.log('profile props', this.props);
     if (this.props.imagesArray) {
       if (this.props.imagesArray.images) {
         let images = this.props.imagesArray.images

@@ -23,7 +23,6 @@ class HeaderContainer extends Component {
   }
 
   render() {
-    console.log("header", this.props);
     const logged_in =
                 <div className="w-full block flex-no-shrink lg:w-auto">
                   <div>
