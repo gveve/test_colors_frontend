@@ -34,7 +34,7 @@ export default (context) => {
     context.lineWidth = item.size;
     context.strokeStyle = clr ;
     context.globalAlpha = (0.5)
-    context.moveTo = (start.x, start.y);
+    context.moveTo(start.x, start.y);
     context.lineTo(x, y);
     context.closePath();
     context.stroke();

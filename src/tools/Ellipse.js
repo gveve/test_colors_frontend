@@ -38,7 +38,6 @@ export default (context) => {
   };
 
   const drawEllipse = (item, mouseX, mouseY) => {
-    console.log(item);
     const startX = mouseX < item.start.x ? mouseX : item.start.x;
     const startY = mouseY < item.start.y ? mouseY : item.start.y;
     const endX = mouseX >= item.start.x ? mouseX : item.start.x;

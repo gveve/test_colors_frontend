@@ -5,7 +5,6 @@ import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Canvas from '../components/Canvas'
 import Modal from '../components/Modal'
-import Modal2 from '../components/Modal2'
 import AuthAdapter from "../services";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter } from 'react-router-dom';
 import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower, TOOL_POLY, Poly } from '../tools'
@@ -243,7 +242,8 @@ class PaintingContainer extends React.Component{
               isOpen={this.state.showModal}
               setName={this.setName}
               handleCloseModal={this.handleCloseModal}
-              handleCancel={this.handleCancel} />
+              handleCancel={this.handleCancel}
+              whichModal='ModalSave' />
             </div>
         </div>
       </div>

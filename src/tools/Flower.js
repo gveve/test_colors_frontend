@@ -87,7 +87,7 @@ export default (context) => {
       var angleStep = (Math.PI * 2)/140;
       context.globalAlpha = 0.4
       context.globalCompositeOperation = item.effect
-      context.moveTo = (radius*Math.cos(0.0),radius*Math.sin(0.0));
+      context.moveTo(radius*Math.cos(0.0),radius*Math.sin(0.0));
       for(var angle = 0.0; angle < Math.PI * 2; angle += angleStep) {
         context.fillStyle = flower.color;
         var rad = radius + flower.params[0] * Math.sin(angle * flower.params[1]);
@@ -117,7 +117,6 @@ export default (context) => {
     drawFlower(flower, start, newPoint);
     flower.points.push(newPoint);
     points.push(newPoint);
-    console.log(points);
 
     return [flower];
   };

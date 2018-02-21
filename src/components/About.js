@@ -18,6 +18,9 @@ class About extends React.Component {
           <div className="flex flex-wrap items-center justify-center content-center mt-8 pt-8">
           <label className="align-middle text-center inline block text-grey mb-1 mt-8 text-2xl leading-loose pr-4" >This project was made by <a href="https://www.gveve.com" className="no-underline hover:underline text-blue text-2xl" target="_blank">Genevieve Costa</a> using <a href="https://reactjs.org/" className="no-underline hover:underline text-blue text-2xl" target="_blank">React.js</a>, <a href="http://gka.github.io/chroma.js/" className="no-underline hover:underline text-blue text-2xl" target="_blank">chroma.js</a>, <a href="https://www.npmjs.com/package/react-modal" className="no-underline hover:underline text-blue text-2xl" target="_blank">react-modal</a>, <a href="https://tailwindcss.com/" className="no-underline hover:underline text-blue text-2xl" target="_blank">Tailwind.css</a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" className="no-underline hover:underline text-blue text-2xl" target="_blank">HTML Canvas</a>. Inspiration from <a href="http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/" className="no-underline hover:underline text-blue text-2xl" target="_blank">William Malone</a>, and <a href="https://github.com/rolyatmax/watercolor-canvas" className="no-underline hover:underline text-blue text-2xl" target="_blank">rolyatmax</a>.</label>
           </div>
+          <div className="flex flex-wrap items-center justify-center content-center mt-8 pt-8">
+          <label className="align-middle text-center inline block text-grey mb-1 mt-8 text-2xl leading-loose pr-4" >This was made for fun, and may have bugs. If you encounter a bug, or want your password reset you can email me at GC@gveve.com. Enjoy!</label>
+          </div>
         </div>
       </div>
 

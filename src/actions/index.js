@@ -17,6 +17,8 @@ export function createUser(user, history) {
         localStorage.setItem("token", res.token);
         dispatch({ type: 'SET_CURRENT_USER', user: res.user });
         history.push("/profile");
+      }else {
+        dispatch({ type: 'SET_CURRENT_USER', user: res });
       }
     });
   };
@@ -29,6 +31,8 @@ export function loginUser(user, history) {
         localStorage.setItem("token", res.token);
         dispatch({ type: 'SET_CURRENT_USER', user: res.user });
         history.push("/profile");
+      }else {
+        dispatch({ type: 'SET_CURRENT_USER', user: res });
       }
     });
   };
@@ -49,7 +53,9 @@ export function saveImage(data, user, name, history){
   return dispatch => {
     AuthAdapter.handleUpload(data, user, name);
     history.push('/profile');
-    AuthAdapter.getImagesFetch();
+    AuthAdapter.getImagesFetch().then(response => dispatch({
+          type: 'SET_IMAGES', images: response
+    }))
   }
 }
 

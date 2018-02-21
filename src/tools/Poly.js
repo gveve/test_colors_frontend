@@ -28,13 +28,11 @@ export default (context) => {
     };
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
-      console.log("down",poly);
     return [poly];
 
   };
 
   const drawLine = (item, start, { x, y }) => {
-    console.log(item);
     BB=context.canvas.getBoundingClientRect();
     offsetX=BB.left;
     offsetY=BB.top;
@@ -66,7 +64,7 @@ export default (context) => {
     context.lineWidth=item.size;
     context.strokeStyle=clr;
     context.beginPath();
-    context.moveTo = (vertex[0].X, vertex[0].Y);
+    context.moveTo(vertex[0].X, vertex[0].Y);
     for(var index=1; index<vertex.length;index++) {
       context.lineTo(vertex[index].X, vertex[index].Y);
     }

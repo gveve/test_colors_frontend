@@ -16,7 +16,6 @@ class Login extends React.Component {
   }
 
   handleChange = (event) => {
-      console.log(event.target);
     const newFields = { ...this.state.fields, [event.target.name]: event.target.value };
     this.setState({ fields: newFields });
   };
@@ -31,14 +30,23 @@ class Login extends React.Component {
 
   render() {
     const { fields } = this.state;
-    console.log("login", this.props);
     return (
+      <div>
+      {this.props.user.error ? (
+        <div id="error-message" className="bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md" role="alert">
+          <div className="flex">
+            <div className="py-1"><svg className="fill-current h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+            <div>
+              <p className="font-bold">{this.props.user.error}</p>
+            </div>
+          </div>
+        </div>) : null}
       <div className="flex mt-8 pt-8 justify-center">
       <form className="w-full max-w-sm mt-8 bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 justify-center" onSubmit={this.handleSubmit}>
         <div className="flex items-center mb-6">
           <div className="md:w-1/3">
             <label className="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" >
-              Full Name
+              Username
             </label>
           </div>
           <div className="md:w-2/3">
@@ -65,8 +73,13 @@ class Login extends React.Component {
         </div>
       </form>
       </div>
+      </div>
     );
   }
 }
 
-export default withRouter(connect(null, actions)(Login));
+const mapStateToProps = state => ({
+  user: state.auth.currentUser
+});
+
+export default withRouter(connect(mapStateToProps, actions)(Login));

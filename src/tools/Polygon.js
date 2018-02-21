@@ -28,7 +28,6 @@ export default (context) => {
       effect
     };
 
-    console.log(polygon);
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
 
@@ -70,7 +69,7 @@ export default (context) => {
       context.beginPath();
       context.globalCompositeOperation = item.effect
       context.globalAlpha = 0.5
-      context.moveTo = (vertex[0].X, vertex[0].Y);
+      context.moveTo(vertex[0].X, vertex[0].Y);
       for(var index=1; index<vertex.length;index++) {
         context.lineTo(vertex[index].X, vertex[index].Y);
       }

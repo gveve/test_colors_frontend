@@ -20,6 +20,7 @@ class AuthAdapter {
         user: {
           username: params.username,
           password: params.password,
+          email: params.email
         }
       })
     }).then(res => res.json());

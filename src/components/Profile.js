@@ -1,14 +1,28 @@
 import {connect} from 'react-redux'
 import React from 'react';
+import Modal from './Modal'
 import AuthAdapter from "../services";
 import * as actions from '../actions';
 
 
 class Profile extends React.Component{
-  constructor(){
-    super()
-    this.state = {
-    }
+
+  state = () => {
+    showModal: false
+    img: ''
+  }
+
+  handleOpenModal = (event) => {
+    this.setState({
+      showModal: true,
+      img: event.target.src
+    })
+  }
+
+  handleCloseModal = () => {
+    this.setState=({
+      showModal: false
+    })
   }
 
 
@@ -23,7 +37,7 @@ class Profile extends React.Component{
             let name = image.name
           return (
             <div className=" flex-auto max-w-xs px-4 py-2 m-2 rounded overflow-hidden shadow-lg">
-             <img id="image" className="w-full" src={imageSrc}></img>
+             <img onClick={this.handleOpenModal} id="image" className="w-full" src={imageSrc}></img>
              <div class="font-base text-sm mb-2">Name: {name}</div>
               <div className="px-6 py-4">
               </div>
@@ -50,6 +64,11 @@ class Profile extends React.Component{
         </div>
         <div className="flex flex-wrap items-center justify-center content-center">
         {this.showImages()}
+        <Modal
+          state={this.state}
+          isOpen={this.state.showModal}
+          handleCloseModal2={this.handleCloseModal}
+          whichModal='ModalImg' />
         </div>
       </div>
     </div>

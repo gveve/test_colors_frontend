@@ -71,14 +71,13 @@ export default (context) => {
       context.strokeStyle = particle.color;
       context.globalCompositeOperation = item.effect;
       context.globalAlpha = 0.4
-      context.moveTo = ( x + Math.random()* 40,  y + Math.random()* 40 );
+      context.moveTo( x + Math.random()* 40,  y + Math.random()* 40 );
       context.lineTo( x + Math.random()* 40,  y + Math.random()* 40 );
       context.closePath();
       context.stroke();
       // context.arc(x, y, particle.radius/2, 0, Math.PI*2, true);
       context.restore();
 
-    console.log(particles.length);
   };
 
   const onMouseMove = (x, y) => {

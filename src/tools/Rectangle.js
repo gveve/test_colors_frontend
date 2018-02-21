@@ -29,7 +29,7 @@ export default (context) => {
     const widthY = Math.abs(item.start.y - mouseY);
 
     // debugger;
-    console.log("mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y);
+    // console.log("mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y);
 
     let myGradient = context.createLinearGradient(startX, 0, cw/2, 0)
 
