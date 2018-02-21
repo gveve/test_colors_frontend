@@ -45,10 +45,10 @@ export function fetchUser(){
   }
 }
 
-export function saveImage(data, user, history){
+export function saveImage(data, user, name, history){
   return dispatch => {
-    AuthAdapter.handleUpload(data, user);
-    history.push('/profile', data: data);
+    AuthAdapter.handleUpload(data, user, name);
+    history.push('/profile');
     AuthAdapter.getImagesFetch();
   }
 }

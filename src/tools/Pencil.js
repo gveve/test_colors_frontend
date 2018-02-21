@@ -8,13 +8,15 @@ export default (context) => {
   let points = [];
   let COLOURS = []
 
-  const onMouseDown = (x, y, color, size) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
     stroke = {
       id: v4(),
       tool: TOOL_PENCIL,
       color,
       size,
-      points: [{ x, y }]
+      points: [{ x, y }],
+      fill,
+      effect
     };
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
@@ -27,12 +29,12 @@ export default (context) => {
     context.save();
     context.lineJoin = 'round';
     context.lineCap = 'round';
+    context.globalCompositeOperation = item.effect
     context.beginPath();
     context.lineWidth = item.size;
     context.strokeStyle = clr ;
     context.globalAlpha = (0.5)
-    context.globalCompositeOperation = 'luminosity';
-    context.moveTo(start.x, start.y);
+    context.moveTo = (start.x, start.y);
     context.lineTo(x, y);
     context.closePath();
     context.stroke();

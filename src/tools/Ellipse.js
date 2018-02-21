@@ -6,7 +6,7 @@ export default (context) => {
   let ellipse = null;
   let imageData = null;
 
-  const onMouseDown = (x, y, color, size, fill, fill2) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
 
     ellipse = {
       id: v4(),
@@ -14,7 +14,7 @@ export default (context) => {
       color,
       size,
       fill,
-      fill2,
+      effect,
       start: { x, y },
       end: null
     };
@@ -38,6 +38,7 @@ export default (context) => {
   };
 
   const drawEllipse = (item, mouseX, mouseY) => {
+    console.log(item);
     const startX = mouseX < item.start.x ? mouseX : item.start.x;
     const startY = mouseY < item.start.y ? mouseY : item.start.y;
     const endX = mouseX >= item.start.x ? mouseX : item.start.x;
@@ -54,9 +55,9 @@ export default (context) => {
     const y1 = centerY + (endY - centerY)/5
     const r1 = radiusY/5
 
-    console.log("x0", x0, "y0", y0, "r0", r0, "x1", x1, "y1", y1, "r1", r1);
+    // console.log("x0", x0, "y0", y0, "r0", r0, "x1", x1, "y1", y1, "r1", r1);
 
-    console.log("startX", startX, "startY", startY, "endX", endX, "endY", endY, "radiusX", radiusX, "radiusY", radiusY, "centerX", centerX, "centerY", centerY, "mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y, r0);
+    // console.log("startX", startX, "startY", startY, "endX", endX, "endY", endY, "radiusX", radiusX, "radiusY", radiusY, "centerX", centerX, "centerY", centerY, "mouseX", mouseX, "mouseY", mouseY, "x", item.start.x, "y", item.start.y, r0);
 
     let myGradient = context.createRadialGradient(x0, y0, r0, x1, y1, y1)
 
@@ -68,9 +69,9 @@ export default (context) => {
 
     context.save();
     context.beginPath();
-    // context.lineWidth = item.size;
+    context.lineWidth = item.size;
+    context.strokeStyle = item.color;
     context.globalAlpha = 0.5
-    // context.strokeStyle = item.color;
     context.fillStyle = myGradient;
 
     if (typeof context.ellipse === 'function') {
@@ -80,8 +81,11 @@ export default (context) => {
 
       drawEllipsePolifyll(centerX, centerY, radiusX, radiusY);
     }
-    // context.stroke();
-    if (item.color)
+
+    context.globalCompositeOperation = item.effect
+    if (item.size != 0) {
+      context.stroke();
+    }
     context.closePath();
     context.fill();
     context.restore();
@@ -89,7 +93,6 @@ export default (context) => {
 
   const onMouseMove = (x, y) => {
     if (!ellipse) return;
-    console.log("onMouseMoveElipse", x, y);
     context.putImageData(imageData, 0, 0);
     drawEllipse(ellipse, x, y);
   };

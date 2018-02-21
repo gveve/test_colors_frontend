@@ -9,6 +9,7 @@ import PaintingContainer from "./PaintingContainer"
 import Login from '../components/Login'
 import Signup from '../components/Signup'
 import Profile from '../components/Profile'
+import About from '../components/About'
 
 class HeaderContainer extends Component {
   constructor(){
@@ -28,6 +29,10 @@ class HeaderContainer extends Component {
                   <div>
                   </div>
                   <div>
+                    <Link to='/about' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">About</Link>
+
+                    <Link to='/paintings' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Paintings Feed</Link>
+
                     <Link to='/' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Paint</Link>
 
                     <Link to='/profile' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Profile</Link>
@@ -43,6 +48,10 @@ class HeaderContainer extends Component {
                   <div className="text-sm">
                   </div>
                   <div>
+                    <Link to='/about' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">About</Link>
+
+                    <Link to='/paintings' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Paintings Feed</Link>
+
                     <Link to='/login' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Login</Link>
 
                     <Link to='/signup' className="inline-block text-base px-4 py-2 leading-none mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Sign up</Link>

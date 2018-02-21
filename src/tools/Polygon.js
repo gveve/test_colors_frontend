@@ -16,7 +16,7 @@ export default (context) => {
   var ch = context.canvas.height;
   let COLOURS = []
 
-  const onMouseDown = (x, y, color, size, fill) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
 
     polygon = {
       id: v4(),
@@ -24,11 +24,12 @@ export default (context) => {
       color,
       size,
       points: [{ x, y }],
-      fill
+      fill,
+      effect
     };
 
+    console.log(polygon);
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
-console.log(polygon);
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
 
     return [polygon];
@@ -67,7 +68,7 @@ console.log(polygon);
       context.lineWidth=item.size;
       context.strokeStyle=clr;
       context.beginPath();
-      context.globalCompositeOperation = 'screen'
+      context.globalCompositeOperation = item.effect
       context.globalAlpha = 0.5
       context.moveTo = (vertex[0].X, vertex[0].Y);
       for(var index=1; index<vertex.length;index++) {
@@ -83,7 +84,6 @@ console.log(polygon);
   };
 
   const onMouseMove = (x, y) => {
-    console.log('moving');
     if (!polygon) return [];
     const newPoint = { x, y };
     const start = polygon.points.slice(-1)[0];

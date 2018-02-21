@@ -39,14 +39,14 @@ class AuthAdapter {
     }).then(res => res.json());
   }
 
-  static handleUpload(image, user) {
+  static handleUpload(image, user, name) {
     return fetch(`${url}/images`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
         accept: "application/json"
       },
-      body: JSON.stringify({name: "thing", img: image, user_id: user})
+      body: JSON.stringify({name: name, img: image, user_id: user})
     }).then(res => res.json());
 
   }

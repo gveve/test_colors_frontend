@@ -38,12 +38,14 @@ export default (context) => {
 
     context.beginPath();
     context.lineWidth = item.size;
-    // context.strokeStyle = item.color;
+    context.strokeStyle = item.color;
     context.fillStyle = myGradient;
-    // context.rect(startX, startY, widthX, widthY);
+    context.rect(startX, startY, widthX, widthY);
     context.globalAlpha = 0.5
     context.fillRect(startX, startY, widthX, widthY)
-    context.stroke();
+    if (item.size != 0) {
+      context.stroke();
+    }
     if (item.color) context.fill();
   };
 

@@ -16,17 +16,9 @@ export default props => {
       >
         <form className="w-full max-w-sm mt-8 bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 justify-center" onSubmit={handleCloseModal}>
         <label className="block text-grey font-bold text-center mb-1 py-4" >
-        Give your painting a title
+        You need to be logged in to save a canvas
         </label>
           <div className="flex justify-center mb-6">
-            <div>
-              <label className="align-middle text-center inline block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" >
-                Title:
-              </label>
-            </div>
-            <div >
-              <input className="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-purple rounded w-full py-2 px-4 text-grey-darker " id="inline-full-name" name='painting name' onChange={setName} type="text" placeholder="Painting Title" required></input>
-            </div>
           </div>
           <div className="flex mb-6 justify-center ">
           <div className="px-4">

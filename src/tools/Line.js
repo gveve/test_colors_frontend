@@ -6,13 +6,15 @@ export default (context) => {
   let line = null;
   let imageData = null;
 
-  const onMouseDown = (x, y, color, size) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
     line = {
       id: v4(),
       tool: TOOL_LINE,
       color,
       size,
+      fill,
       start: { x, y },
+      effect,
       end: null
     };
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
@@ -26,7 +28,7 @@ export default (context) => {
     context.beginPath();
     context.lineWidth = item.size;
     context.strokeStyle = item.color;
-    context.globalCompositeOperation = 'source-over';
+    context.globalCompositeOperation = item.effect;
     context.moveTo(item.start.x, item.start.y);
     context.lineTo(x, y);
     context.closePath();

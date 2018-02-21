@@ -17,13 +17,14 @@ class Profile extends React.Component{
     if (this.props.imagesArray) {
       if (this.props.imagesArray.images) {
         let images = this.props.imagesArray.images
-        // debugger
         return images.map((image, i) => {
           if (image.user.id === this.props.currentUser.id) {
             let imageSrc = "data:image/png;base64,"+`${image.img}`
+            let name = image.name
           return (
             <div className=" flex-auto max-w-xs px-4 py-2 m-2 rounded overflow-hidden shadow-lg">
              <img id="image" className="w-full" src={imageSrc}></img>
+             <div class="font-base text-sm mb-2">Name: {name}</div>
               <div className="px-6 py-4">
               </div>
           </div>

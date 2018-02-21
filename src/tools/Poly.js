@@ -16,7 +16,7 @@ export default (context) => {
   var ch = context.canvas.height;
   let COLOURS = []
 
-  const onMouseDown = (x, y, color, size, fill) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
     poly = {
       id: v4(),
       tool: TOOL_POLY,
@@ -24,6 +24,7 @@ export default (context) => {
       size,
       fill,
       points: [{ x, y }],
+      effect
     };
 
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
@@ -33,6 +34,7 @@ export default (context) => {
   };
 
   const drawLine = (item, start, { x, y }) => {
+    console.log(item);
     BB=context.canvas.getBoundingClientRect();
     offsetX=BB.left;
     offsetY=BB.top;
@@ -60,6 +62,7 @@ export default (context) => {
     // vertex.push( {X:startX, Y:startY} )
 
     let clr = COLOURS[Math.floor(Math.random()*COLOURS.length)]
+    context.globalCompositeOperation = item.effect
     context.lineWidth=item.size;
     context.strokeStyle=clr;
     context.beginPath();

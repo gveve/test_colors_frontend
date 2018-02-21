@@ -24,73 +24,44 @@ export default (context) => {
     return min + Math.random() * ( max - min );
   }
 
-  const onMouseDown = (x, y, color, size) => {
+  const onMouseDown = (x, y, color, size, fill, effect) => {
 
     particle = {
       id: v4(),
       tool: TOOL_PARTICLE,
       color,
       size,
+      fill,
+      effect,
       points: [{ x, y }]
     };
     imageData = context.getImageData(0, 0, context.canvas.clientWidth, context.canvas.clientHeight);
-    console.log(color);
-    // debugger;
     COLOURS = chroma.scale([color, '#FFFFFF']).colors(20)
-    // debugger;
     return [particle];
-    // drawParticlePolifyll(x, y, Math.random( 5, 40 ))
 
   };
 
   function Particle( x, y, radius ) {
-    // debugger
-          // this.alive = true;
           this.radius = radius || 10;
-          // this.wander = 0.15;
-          // this.theta = random( 2 * Math.pi );
-          // this.drag = 0.92;
           this.color = ''
-          // this.x = x || 0.0;
-          // this.y = y || 0.0;
-          // this.vx = 0.0;
-          // this.vy = 0.0;
   };
 
 
   const drawParticlePolifyll = (x, y) => {
     var particle, theta, force;
-    // debugger;
     particle = new Particle( x, y, Math.random( 5, 40 ) );
     particle.wander = Math.random( 0.5, 2.0 );
     particle.color = COLOURS[Math.floor(Math.random()*COLOURS.length)];
-    // particle.drag = Math.random( 0.9, 0.99 );
-    // theta = Math.random( 2 * Math.pi );
-    // force = Math.random( 2, 8 );
-    // particle.vx = Math.sin( theta ) * force;
-    // particle.vy = Math.cos( theta ) * force;
-    // debugger
     particles.push( particle );
   }
 
 
   const drawParticle = (item, start, { x, y }) => {
-    // debugger;
 
       var particle, theta, force;
-      // debugger;
       particle = new Particle( x, y, Math.floor((Math.random()* 40 )+1 ));
-      // particle.wander = Math.floor(Math.random()* 2);
       particle.color = COLOURS[(Math.floor(Math.random()*COLOURS.length)+1)];
-      // debugger
-      // particle.drag = Math.random( 0.9, 0.99 );
-      // theta = Math.random( 2 * Math.PI );
-      // force = Math.random( 2, 8 );
-      // particle.vx = Math.sin( theta ) * force;
-      // particle.vy = Math.cos( theta ) * force;
-      // debugåger
       particles.push( particle );
-      console.log(particle);
       context.save();
       context.lineJoin = 'round';
       context.lineCap = 'round';
@@ -98,7 +69,7 @@ export default (context) => {
       context.fillStyle = particle
       context.lineWidth = particle.radius * (item.size/2);
       context.strokeStyle = particle.color;
-      // context.globalCompositeOperation = 'lighter';
+      context.globalCompositeOperation = item.effect;
       context.globalAlpha = 0.4
       context.moveTo = ( x + Math.random()* 40,  y + Math.random()* 40 );
       context.lineTo( x + Math.random()* 40,  y + Math.random()* 40 );

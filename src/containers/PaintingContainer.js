@@ -4,6 +4,8 @@ import Login from '../components/Login'
 import Signup from '../components/Signup'
 import Profile from '../components/Profile'
 import Canvas from '../components/Canvas'
+import Modal from '../components/Modal'
+import Modal2 from '../components/Modal2'
 import AuthAdapter from "../services";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter } from 'react-router-dom';
 import { Pencil, TOOL_PENCIL, Line, TOOL_LINE, Ellipse, TOOL_ELLIPSE, Rectangle, TOOL_RECTANGLE, TOOL_PARTICLE, Particle, TOOL_POLYGON, Polygon, TOOL_FLOWER, Flower, TOOL_POLY, Poly } from '../tools'
@@ -53,8 +55,41 @@ class PaintingContainer extends React.Component{
       fillColor2: '#444444',
       colorscal: [],
       items: [],
-      save: false
+      save: false,
+      name: 'lame',
+      showModal: false,
+      image: '',
+      effect: 2,
+      effectName: 'none'
     }
+  }
+
+  handleOpenModal = () => {
+    this.setState({
+      showModal: true,
+     });
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false,
+     });
+     this.handleSave()
+  }
+
+  setName = (event) => {
+    event.preventDefault()
+    this.setState({
+      name: event.target.value
+    })
+  }
+
+  handleCancel = () => {
+    this.setState({
+      showModal: false,
+      name: 'lame',
+      save: false
+     });
   }
 
   handleColor = (event) => {
@@ -64,6 +99,7 @@ class PaintingContainer extends React.Component{
       dataURL: ''
     })
   }
+
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -75,23 +111,38 @@ class PaintingContainer extends React.Component{
   }
 
   wannaSave = () => {
-    this.setState({
-      save: true
-    })
+    if (this.props.currentUser.id) {
+      this.setState({
+        save: true
+      })
+    } else {
+      window.alert("You have to be logged in or sign up to save!")
+    }
   }
 
-  handleSave = (data) => {
-      let image = data
+  tempSave = (data) => {
+    this.setState({
+      image: data,
+      save: false,
+    })
+    if (this.state.image != '') {
+      this.handleOpenModal()
+    }
+  }
+
+  handleSave = () => {
+      let image = this.state.image
       let user = this.props.currentUser.id
-      this.props.saveImage(image, user, this.props.history)
+      let name = this.state.name
+      this.props.saveImage(image, user, name, this.props.history)
   }
 
   render(){
-    const { tool, size, color, fill, fillColor, fillColor2, colorscal, items, save } = this.state;
+    const { tool, size, color, fill, fillColor, fillColor2, colorscal, items, save, name, effect, effectName } = this.state;
     return(
       <div>
           <div className="flex">
-            <div className="w-1/6 bg-grey h-screen flex-no-shrink text-white p-8">
+            <div className="w-1/6 bg-grey  h-full flex-1 text-white p-8 overflow-auto " style={{ height: '92.3vh' }}>
 
               <div className="w-full leading-none border rounded border-white px-4 pb-2">
                 <div className=" pt-2 text-center">
@@ -107,7 +158,16 @@ class PaintingContainer extends React.Component{
                   <label className="text-sm text-center text-white" name="scale-color-1">Size</label>
                 </div>
                 <div className="px-6 py-4 text-center item-center" >
-                  <input className="leading-none border rounded border-white hover:border-teal items-center mx-auto" id="size" min="1" style={slider} max="20" type="range" value={size} onChange={(e) => this.setState({size: parseInt(e.target.value)})} />
+                  <input className="leading-none border rounded border-white hover:border-teal items-center mx-auto" id="size" min="0" style={slider} max="20" type="range" value={size} onChange={(e) => this.setState({size: parseInt(e.target.value)})} />
+                </div>
+              </div>
+
+              <div className="w-full leading-none border rounded border-white mt-4 px-4 pb-2">
+                <div className=" pt-2 text-center">
+                  <label className="text-sm text-center text-white" name="scale-color-1">Effect</label>
+                </div>
+                <div className="px-6 py-4 text-center item-center" >
+                  <input className="leading-none border rounded border-white hover:border-teal items-center mx-auto" id="effect" min="1" style={slider} max="23" type="range" value={effect} onChange={(e) => this.setState({effect: parseInt(e.target.value)})} />
                 </div>
               </div>
 
@@ -160,6 +220,7 @@ class PaintingContainer extends React.Component{
             <Canvas
             handleSave={this.handleSave}
             handleDataURL={this.handleDataURL}
+            tempSave={this.tempSave}
             wannaSave={this.wannaSave}
             colors={this.state}
             width={500}
@@ -172,7 +233,17 @@ class PaintingContainer extends React.Component{
             items={items}
             tool={tool}
             save={save}
+            name={name}
+            effect={effect}
+            effectName={effectName}
             />
+            <Modal
+              state={this.state}
+              name={this.state.name}
+              isOpen={this.state.showModal}
+              setName={this.setName}
+              handleCloseModal={this.handleCloseModal}
+              handleCancel={this.handleCancel} />
             </div>
         </div>
       </div>

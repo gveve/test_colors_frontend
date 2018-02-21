@@ -56,7 +56,9 @@ class Canvas extends Component {
     colorscal: [],
     r: Math.floor(Math.random() * 200),
     g: Math.floor(Math.random() * 200),
-    b: Math.floor(Math.random() * 200)
+    b: Math.floor(Math.random() * 200),
+    effect: '',
+    effectName: 'screen'
   };
 
   constructor(props) {
@@ -68,7 +70,8 @@ class Canvas extends Component {
     this.onDebouncedMove = this.onDebouncedMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.state=({
-      thing: ''
+      thing: '',
+      effectName: ''
     })
   }
 
@@ -76,10 +79,8 @@ class Canvas extends Component {
     this.canvas = findDOMNode(this.canvasRef);
     this.ctx = this.canvas.getContext('2d');
     let thing = chroma(`${this.props.r}`, `${this.props.g}`, `${this.props.b}`).hex()
-    // console.log(thing);
     this.canvas.style.backgroundColor = thing
     this.initTool(this.props.tool);
-    // console.log("component", this.props);
   }
 
   componentWillReceiveProps({tool, items}) {
@@ -90,14 +91,150 @@ class Canvas extends Component {
         this.tool.draw(item, this.props.animate);
       });
     this.initTool(tool);
+    this.handleEffect()
   }
 
   initTool(tool) {
     this.tool = this.props.toolsMap[tool](this.ctx);
   }
 
+  handleEffect = () => {
+    let thing = this.props.effect
+    switch (thing) {
+      case 1:
+      this.setState({
+        effectName: 'none'
+      })
+        break;
+      case 2:
+      this.setState({
+        effectName: 'none'
+      })
+        break;
+        case 3:
+        this.setState({
+          effectName: 'source-over'
+        })
+          break;
+          case 4:
+          this.setState({
+            effectName: 'destination-over'
+          })
+            break;
+            case 5:
+            this.setState({
+              effectName: 'source-atop'
+            })
+              break;
+              case 6:
+              this.setState({
+                effectName: 'luminosity'
+              })
+                break;
+                case 7:
+                this.setState({
+                  effectName: 'screen'
+                })
+                  break;
+                  case 8:
+                  this.setState({
+                    effectName: 'destination-out'
+                  })
+                    break;
+                    case 9:
+                    this.setState({
+                      effectName: 'color'
+                    })
+                      break;
+                      case 10:
+                      this.setState({
+                        effectName: 'lighter'
+                      })
+                        break;
+                        case 11:
+                        this.setState({
+                          effectName: 'saturation'
+                        })
+                          break;
+                          case 12:
+                          this.setState({
+                            effectName: 'xor'
+                          })
+                            break;
+                            case 13:
+                            this.setState({
+                              effectName: 'multiply'
+                            })
+
+                              break;
+                              case 14:
+                              this.setState({
+                                effectName: 'overlay'
+                              })
+
+                                break;
+                                case 15:
+                                this.setState({
+                                  effectName: 'darken'
+                                })
+
+                                  break;
+                                  case 16:
+                                  this.setState({
+                                    effectName: 'lighten'
+                                  })
+
+                                    break;
+                                    case 17:
+                                    this.setState({
+                                      effectName: 'color-dodge'
+                                    })
+
+                                      break;
+                                      case 18:
+                                      this.setState({
+                                        effectName: 'color-burn'
+                                      })
+
+                                        break;
+                                        case 19:
+                                        this.setState({
+                                          effectName: 'hard-light'
+                                        })
+
+                                          break;
+                                          case 20:
+                                          this.setState({
+                                            effectName: 'soft-light'
+                                          })
+
+                                            break;
+                                            case 21:
+                                            this.setState({
+                                              effectName: 'difference'
+                                            })
+
+                                              break;
+                                              case 22:
+                                              this.setState({
+                                                effectName: 'exclusion'
+                                              })
+
+                                                break;
+                                                case 23:
+                                                this.setState({
+                                                  effectName: 'hue'
+                                                })
+
+                                                  break;
+
+      default: 'screen'
+
+    }
+  }
+
   onMouseDown(e) {
-    const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor, this.props.fillColor2);
+    const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor, this.state.effectName);
     data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
     if (this.props.onDebouncedItemChange) {
       this.interval = setInterval(this.onDebouncedMove, this.props.debounceTime);
@@ -150,7 +287,7 @@ class Canvas extends Component {
 
 
   render() {
-    // console.log("render", this.props);
+    // console.log("rend1er", this.props);
     const {width, height, canvasClassName} = this.props;
 
     if (this.props.save === true) {
@@ -166,7 +303,7 @@ class Canvas extends Component {
       let image = document.getElementById('canvas');
       let dataIMG = image.toDataURL("image/png");
        let data = dataIMG.replace(/^data:image\/(png|jpg);base64,/, "");
-       this.props.handleSave(data);
+       this.props.tempSave(data);
     }
     return (
        <div className='static pin-b pin-r'>
@@ -179,7 +316,7 @@ class Canvas extends Component {
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         width={window.innerWidth - window.innerWidth/6}
-        height={window.innerHeight}
+        height={'799vh'}
       />
 
       </div>
