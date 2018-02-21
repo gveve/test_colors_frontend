@@ -25,6 +25,10 @@ class Profile extends React.Component{
     })
   }
 
+  componentDidMount = () => {
+    this.props.getImages()
+  }
+
 
   showImages = () => {
     if (this.props.imagesArray) {
