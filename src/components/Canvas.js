@@ -316,7 +316,7 @@ class Canvas extends Component {
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         width={window.innerWidth - window.innerWidth/6}
-        height={'799vh'}
+        height={window.innerHeight - window.innerHeight/15}
       />
 
       </div>

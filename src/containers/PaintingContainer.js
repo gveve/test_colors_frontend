@@ -141,7 +141,7 @@ class PaintingContainer extends React.Component{
     return(
       <div>
           <div className="flex">
-            <div className="w-1/6 bg-grey  h-full flex-1 text-white p-8 overflow-auto " style={{ height: '92.3vh' }}>
+            <div className="w-1/6 bg-grey  h-full flex-1 text-white p-8 overflow-auto " style={{ height: window.innerHeight - window.innerHeight/15 }}>
 
               <div className="w-full leading-none border rounded border-white px-4 pb-2">
                 <div className=" pt-2 text-center">
@@ -170,47 +170,39 @@ class PaintingContainer extends React.Component{
                 </div>
               </div>
 
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_PENCIL})} >Pencil</button>
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center text-white hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_PENCIL})}>
+                <button className="text-white hover:text-teal" >Pencil</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_LINE})}>
+                <button className="text-white hover:text-teal" >Line</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_ELLIPSE})}>
+                <button className="text-white hover:text-teal" >Elipse</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_RECTANGLE})}>
+                <button className="text-white hover:text-teal" >Rectangle</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_PARTICLE})}>
+                <button className="text-white hover:text-teal" >Particle</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_POLYGON})}>
+                <button className="text-white hover:text-teal" >Polygon</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_FLOWER})}>
+                <button className="text-white hover:text-teal" >Flower</button>
+              </div>
+
+              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center text-white hover:text-teal hover:bg-white mt-4" onClick={() => this.setState({tool:TOOL_POLY})}>
+                <button className="text-white text-center hover:text-teal" >Poly</button>
               </div>
 
               <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_LINE})} >Line</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_ELLIPSE})} >Elipse</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_RECTANGLE})} >Rectangle</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_PARTICLE})} >Particle</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_POLYGON})} >Polygon</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
-                <button className="text-white hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_FLOWER})} >Flower</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 leading-none border rounded border-white hover:border-transparent text-center text-white hover:text-teal hover:bg-white mt-4">
-                <button className="text-white text-center hover:text-teal"
-                onClick={() => this.setState({tool:TOOL_POLY})} >Poly</button>
-              </div>
-
-              <div className="w-full text-sm h-auto mt-4 px-4 py-4 mb-8 leading-none border rounded border-white hover:border-transparent text-center hover:text-teal hover:bg-white mt-4">
                 <button href="#" className="pl-2 text-sm text-white hover:text-teal" onClick={this.wannaSave}>Save Canvas</button>
               </div>
 
